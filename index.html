@@ -9,144 +9,200 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--oliva:#5B5E3A;--ink:#1F1A17;--sub:#6F6863;--line:#E8E5E0;--tile:#F3F1EC;--bg:#FFFFFF;--red:#A8521F;--caju:#E58A4E;--cafe:#3F2515;--alg:#FBF8F1}
+:root{--ink:#1F1A17;--sub:#7A736D;--line:#E6E2DC;--tile:#F4F1EC;--areia:#EFE7DA;--ceu:#E9DFCF;--mar:#5B5E3A;--sol:#E9DFCF;--caju:#5B5E3A;--cajut:#5B5E3A;--oliva:#5B5E3A;--cafe:#3F2515;--alg:#FBF8F1;--red:#A8521F}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:Jost,system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:17px;line-height:1.45;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
-button{font:inherit;cursor:pointer}
-.wrap{max-width:1320px;margin:0 auto;padding:0 32px}
+body{font-family:Jost,system-ui,sans-serif;font-weight:300;color:var(--ink);background:#fff;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{font:inherit;cursor:pointer;color:inherit}
+b,strong{font-weight:500}
+.wrap{max-width:1440px;margin:0 auto;padding:0 40px}
 @media (max-width:720px){.wrap{padding:0 20px}}
-.strip{border-bottom:1px solid var(--line);font-size:13.5px;text-align:center;padding:9px 16px;color:var(--ink)}
-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.hd{display:flex;align-items:center;gap:32px;height:72px}
-.hd .logo img{height:28px;width:auto}
-nav.main{display:flex;gap:26px;flex:1;justify-content:center;font-size:16px}
-nav.main a:hover,nav.main a.on{text-decoration:underline;text-underline-offset:5px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:12px;padding:12px 22px;font-weight:500;font-size:16px;border:1px solid var(--line);background:#fff;color:var(--ink);transition:background .15s}
-.btn:hover{background:#F6F6F6}
-.btn-dark{background:var(--cafe);color:#fff;border-color:var(--cafe)}
-.btn-dark:hover{background:#2A180D}
-.wa svg{width:18px;height:18px}
-.burger{display:none;background:none;border:0;padding:6px}
-.burger span{display:block;width:22px;height:1.5px;background:var(--ink);margin:6px 0}
+.strip{font-size:12.5px;letter-spacing:.04em;text-align:center;padding:8px 16px;background:var(--cafe);color:var(--alg);text-transform:lowercase}
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:32px;height:78px}
+.hd .logo img{height:30px;width:auto}
+nav.main{display:flex;gap:30px;flex:1;justify-content:flex-end;font-size:14.5px;text-transform:lowercase;color:#4a4540}
+nav.main a:hover,nav.main a.on{color:var(--ink);font-weight:500}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 26px;font-weight:400;font-size:15px;border:1px solid var(--ink);background:#fff;color:var(--ink);border-radius:0;letter-spacing:.02em;text-transform:lowercase;transition:background .15s,color .15s}
+.btn:hover{background:var(--ink);color:#fff}
+.btn-dark{background:var(--ink);color:#fff}.btn-dark:hover{background:var(--cafe)}
+.wa-top{border:0;padding:0;font-size:14.5px;color:#4a4540}.wa-top:hover{background:none;color:var(--ink)}.wa svg{width:16px;height:16px}
+.burger{display:none;background:none;border:0;padding:6px}.burger span{display:block;width:22px;height:1.2px;background:var(--ink);margin:6px 0}
 .mnav{display:none}
-@media (max-width:960px){nav.main,.hd .wa-top{display:none}.burger{display:block;order:-1}.hd{gap:16px}.mnav.open{display:flex;flex-direction:column;padding:8px 20px 20px;border-bottom:1px solid var(--line);background:#fff}.mnav a{padding:12px 0;font-size:20px;border-bottom:1px solid var(--line)}}
+@media (max-width:1000px){nav.main,.hd .wa-top{display:none}.burger{display:block;margin-left:auto}.mnav.open{display:flex;flex-direction:column;padding:8px 20px 20px;border-bottom:1px solid var(--line);background:#fff}.mnav a{padding:12px 0;font-size:20px;border-bottom:1px solid var(--line);text-transform:lowercase}}
 .view{display:none}.view.on{display:block}
-/* hero */
-.hero{position:relative;margin-top:24px;border-radius:16px;overflow:hidden;background:var(--tile);min-height:min(78vh,720px);display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding:48px}
-.hero img{position:absolute;right:3%;top:42%;transform:translateY(-50%);width:min(52%,700px)}
-.hero .tx{position:relative;max-width:560px}
-h1{font-weight:600;font-size:clamp(44px,6vw,84px);line-height:1;letter-spacing:-.025em}
-.hero p{font-size:clamp(18px,1.8vw,22px);margin:16px 0 26px;color:var(--ink)}
-.hero .ctas{display:flex;gap:10px;flex-wrap:wrap}
-.hero .note{position:absolute;top:28px;left:48px}
-@media (max-width:820px){.hero{padding:28px 22px;min-height:620px}.hero img{position:relative;right:auto;top:auto;transform:none;width:100%;margin:40px 0 30px}.hero .note{left:22px;top:22px}}
-.trust{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);padding:26px 0}
-.trust div{padding:0 18px;border-left:1px solid var(--line)}.trust div:first-child{border-left:0;padding-left:0}
-.trust b{display:block;font-weight:600;font-size:17px}.trust b::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--caju);margin-right:8px;vertical-align:2px}
-.trust span{color:var(--sub);font-size:15px}
-@media (max-width:820px){.trust{grid-template-columns:1fr 1fr;gap:18px 0}.trust div:nth-child(3){border-left:0;padding-left:0}}
+/* HERO pop */
+.hero2{display:grid;grid-template-columns:1fr 1.25fr;min-height:min(80vh,760px)}
+.hero2 .ph{background:var(--tile);display:flex;align-items:center;justify-content:center;padding:8%;position:relative;overflow:hidden}
+.hero2 .ph img{width:100%;max-width:620px}
+.hero2 .ph small{position:absolute;left:28px;bottom:24px;font-size:13px;letter-spacing:.06em;text-transform:lowercase;color:#6b5a48}
+.pop{background:var(--oliva);color:var(--alg);padding:44px 52px;position:relative;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.pop .ast{display:none}
+.pop h1{font-weight:600;font-size:clamp(72px,9vw,160px);line-height:.82;letter-spacing:-.04em;text-transform:uppercase}
+.pop h1 sup{font-size:.32em;letter-spacing:0;vertical-align:top;position:relative;top:.25em;margin-left:.06em}
+.pop .dt{position:absolute;right:52px;top:42%;text-align:right;font-weight:400;font-size:clamp(22px,2.4vw,36px);line-height:1.15}
+.pop .bot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.pop .bot p{font-size:15px;line-height:1.4;max-width:300px;font-weight:400}
+.pop .big50{font-weight:600;font-size:clamp(48px,6vw,96px);line-height:.85;letter-spacing:-.03em}
+.pop .big50 small{display:block;font-size:.26em;letter-spacing:.04em;font-weight:500;margin-bottom:6px;text-transform:lowercase}
+@media (max-width:900px){.hero2{grid-template-columns:1fr}.pop{min-height:560px;padding:32px 26px}.pop .dt{right:26px}.hero2 .ph{min-height:340px}}
+/* mosaic */
+.mosaic{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:0;margin-top:0}
+.mosaic a{position:relative;min-height:440px;display:flex;align-items:center;justify-content:center;padding:10%;overflow:hidden}
+.mosaic a img{max-height:300px;width:auto;transition:transform .5s}
+.mosaic a:hover img{transform:scale(1.04)}
+.mosaic span{position:absolute;left:26px;bottom:22px;font-size:14px;letter-spacing:.04em;text-transform:lowercase}
+.mosaic span::before{content:"↗ "}
+@media (max-width:900px){.mosaic{grid-template-columns:1fr}.mosaic a{min-height:320px}}
+/* big words */
+.words{padding-top:90px;padding-bottom:70px;border-bottom:1px solid var(--line)}
+.words .lb{font-size:13px;letter-spacing:.08em;text-transform:lowercase;color:var(--sub);margin-bottom:22px}
+.catrow{display:flex;flex-wrap:wrap;gap:0 .45em;font-size:clamp(40px,5.6vw,88px);font-weight:300;line-height:1.08;letter-spacing:-.025em;text-transform:lowercase}
+.catrow a{color:#cfc8c0;transition:color .2s}.catrow a:hover{color:var(--ink)}
+.catrow a:not(:last-child)::after{content:" /";color:#e6e1da}
+/* ambientes (assimétrico) */
+.amb{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:auto auto}
+.amb>a{position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:34px;min-height:380px;overflow:hidden}
+.amb>a img{width:62%;align-self:flex-end;transition:transform .6s}
+.amb>a:hover img{transform:translateX(-8px) scale(1.03)}
+.amb h3{font-weight:300;font-size:clamp(30px,3vw,46px);letter-spacing:-.02em;line-height:1}
+.amb p{font-size:14.5px;color:#5c544c;max-width:300px;margin-top:10px}
+.amb span{font-size:13px;letter-spacing:.04em;margin-top:14px;display:inline-block;color:var(--ink)}
+.amb>a>div{order:-1}
+.amb .amb0{grid-row:span 2;min-height:760px}.amb .amb0 img{width:92%;align-self:center;margin:auto 0}
+.amb .amb3{grid-column:span 2}.amb .amb3 img{width:34%;position:absolute;right:34px;bottom:24px}
+@media (max-width:900px){.amb{grid-template-columns:1fr}.amb .amb0{grid-row:auto;min-height:480px}.amb .amb3{grid-column:auto}.amb .amb3 img{position:static;width:50%}}
+/* destaques assimétrico */
+.feat{display:grid;grid-template-columns:repeat(4,1fr);gap:48px 28px}
+.feat .card.big{grid-column:span 2;grid-row:span 2}
+.feat .card.big .ph{aspect-ratio:auto;height:calc(100% - 70px);min-height:420px;background:var(--tile)}
+@media (max-width:900px){.feat{grid-template-columns:1fr 1fr}.feat .card.big{grid-column:span 2;grid-row:auto}}
+.ph.hv{position:relative}.ph .alt{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}.card:hover .ph .alt{opacity:1}
+/* quem faz */
+.quem{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;padding-top:90px;padding-bottom:20px;border-top:1px solid var(--line);margin-top:90px}
+.quem .lb,.story .lb,.pp-quem .lb{font-size:12.5px;letter-spacing:.08em;text-transform:lowercase;color:var(--sub);display:block;margin-bottom:12px}
+.quem h3{font-weight:300;font-size:clamp(28px,3vw,42px);line-height:1.15;letter-spacing:-.015em}
+.quem p{font-size:16px;color:#4a4540;line-height:1.65}.quem .qs{margin-top:18px;font-size:13px;letter-spacing:.04em;color:var(--sub)}
+@media (max-width:900px){.quem{grid-template-columns:1fr;gap:20px}}
+.story{margin-top:26px;padding:20px 22px;background:var(--tile)}.story p{font-size:15px;line-height:1.6;color:#4a4540}
+.pp-quem{grid-column:1/-1;border-top:1px solid var(--line);padding:26px 0 10px;max-width:760px}.pp-quem p{font-size:15px;color:#4a4540;line-height:1.6}
+.mbar{display:none}
+@media (max-width:720px){.mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--ink);color:#fff;justify-content:space-between;align-items:center;padding:14px 20px;font-size:15px}.mbar s{color:#a9a29b;font-size:12px;margin-left:6px}.mbar b{font-weight:500}.view#v-produto.on~.fwa{display:none}}
+
+/* sublinhado reto fino */
+nav.main a,.mnav a,.wa-top,.chips button,.fcol .ls a,.sec-h a,.amb span,.crumb a,.crumbs a,.catrow a,.card .nm,.txt a{position:relative}
+nav.main a::after,.wa-top::after,.chips button::after,.fcol .ls a::after,.sec-h a::after,.amb span::after,.crumb a::after,.catrow a::before,.card .nm::after,.txt a::after{content:"";position:absolute;left:0;bottom:-3px;height:1px;width:0;background:var(--ink);transition:width .35s cubic-bezier(.65,0,.35,1)}
+.catrow a::before{bottom:.08em;height:1.5px;background:var(--ink)}
+.card .nm{display:inline-block}
+nav.main a:hover::after,nav.main a.on::after,.wa-top:hover::after,.chips button:hover::after,.chips button.on::after,.fcol .ls a:hover::after,.sec-h a:hover::after,.amb a:hover span::after,.crumb a:hover::after,.catrow a:hover::before,.card:hover .nm::after,.txt a:hover::after{width:100%}
+.chips button.on{border-color:transparent}
+/* reveal */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}.rv.in{opacity:1;transform:none}
 /* sections */
-.sec{padding-top:64px;padding-bottom:20px}
-.sec-h{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;flex-wrap:wrap}
-.sec-h h2{font-weight:600;font-size:clamp(26px,2.6vw,34px);letter-spacing:-.015em}
-.sec-h h2::after,.split h3::after,.hero h1::after{content:"";display:inline-block;width:.2em;height:.2em;border-radius:50%;background:var(--caju);margin-left:.06em}
-.sec-h a{font-size:16px;text-decoration:underline;text-underline-offset:4px}
-.catrow{display:flex;gap:10px;flex-wrap:wrap}
-.catrow a{border:1px solid var(--line);border-radius:12px;padding:12px 20px;font-size:16px}
-.catrow a:hover{background:var(--oliva);border-color:var(--oliva);color:#fff}
+.sec{padding-top:80px;padding-bottom:10px}
+.sec-h{display:flex;align-items:baseline;gap:18px;margin-bottom:34px;flex-wrap:wrap}
+.sec-h h2{font-weight:400;font-size:clamp(26px,2.6vw,36px);letter-spacing:-.015em;text-transform:lowercase}
+.sec-h a,.sec-h span{font-size:14px;color:var(--sub);text-transform:lowercase}.sec-h a:hover{color:var(--ink)}
 /* grid */
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px 24px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:56px 28px}
 @media (max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr);gap:30px 14px}}
-.card .ph{aspect-ratio:1/1;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:14%;overflow:hidden}
-.card .ph img{max-height:100%;object-fit:contain;transition:transform .4s}
-.card:hover .ph img{transform:scale(1.04)}
-.off::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--caju);margin-right:7px;vertical-align:1px}
-.off{display:inline-block;background:var(--cafe);color:#fff;font-size:12px;font-weight:600;letter-spacing:.05em;padding:5px 11px;border-radius:20px;margin:14px 0 8px;text-transform:uppercase}
-.card .nm{font-weight:600;font-size:18px;line-height:1.25}
-.card .ds{font-size:15px;color:var(--sub);margin-top:2px}
-.pr{margin-top:6px;font-size:17px}
-.pr s{display:block;color:var(--red);font-size:16px}
-.pr b{font-weight:400}
-.vn{font-size:13.5px;color:var(--sub);margin-top:4px}
-.pay{font-size:13.5px;color:var(--sub);margin-top:3px;line-height:1.4}.pay .px{color:var(--oliva);font-weight:600}.pay.lg{font-size:16px;margin-top:6px}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
-.chips button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 18px;font-size:15px;color:var(--ink)}
-.chips button.on{background:var(--oliva);border-color:var(--oliva);color:#fff}
-/* split banner */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.split>div{background:var(--tile);border-radius:16px;padding:44px;min-height:420px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
-.split h3{font-weight:600;font-size:clamp(28px,3vw,40px);line-height:1.05;letter-spacing:-.02em;max-width:420px}
-.split p{color:var(--sub);max-width:420px;margin-top:12px}
-.split img{width:72%;align-self:flex-end;margin-top:20px}
-@media (max-width:820px){.split{grid-template-columns:1fr}.split>div{padding:28px;min-height:auto}}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--line);padding-top:28px}
-.steps b{font-weight:600;color:var(--caju);font-size:15px}
-.steps h3{font-weight:600;font-size:22px;margin:6px 0}
-.steps p{color:var(--sub)}
+@media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr);gap:36px 14px}}
+.card .ph{aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;padding:10%}
+.card .ph img{max-height:100%;object-fit:contain;transition:transform .45s}
+.card:hover .ph img{transform:scale(1.05)}
+.card .nm{font-weight:400;font-size:15.5px;margin-top:10px;text-transform:lowercase}
+.card .ds{display:none}
+.pr{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:15px;margin-top:2px}
+.pr b{font-weight:500}.pr s{color:#a9a29b;font-size:13.5px}
+.pct{font-size:12.5px;color:var(--mar);font-weight:500}
+.pay{font-size:12.5px;color:var(--sub);margin-top:2px;line-height:1.45}.pay .px{color:var(--oliva);font-weight:400}
+.vn{font-size:12.5px;color:var(--sub);margin-top:3px}
+.off{display:none}
+.dots{display:flex;align-items:center;gap:5px;margin-top:6px}.dots i{width:11px;height:11px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}.dots span{font-size:12px;color:var(--sub);margin-left:3px}
+/* catalog layout */
+.catlay{display:grid;grid-template-columns:320px 1fr;gap:48px;padding-top:0}
+.catside{position:sticky;top:79px;height:calc(100vh - 79px);overflow:hidden;background:var(--tile)}
+.catside #catname{position:absolute;left:22px;bottom:20px;font-size:13px;letter-spacing:.04em;color:#5c544c;z-index:2}
+.catside img{transition:opacity .25s ease;position:absolute;width:190%;max-width:none;left:-30%;top:50%;transform:translateY(-50%)}
+.catmain{padding:40px 40px 20px 0}
+.crumbs{font-size:13px;color:var(--sub);text-transform:lowercase;margin-bottom:24px}
+@media (max-width:900px){.catlay{grid-template-columns:1fr}.catside{display:none}.catmain{padding:30px 20px}}
+.chips{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:40px;font-size:14.5px;text-transform:lowercase}
+.chips button{text-transform:lowercase;background:none;border:0;padding:0 0 3px;color:var(--sub);border-bottom:1px solid transparent}
+.chips button.on{color:var(--ink);border-color:var(--ink)}
+/* editorial */
+.edit{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;padding-top:100px;padding-bottom:40px;align-items:start}
+.edit h3{font-weight:300;font-size:clamp(34px,3.8vw,58px);line-height:1.38;letter-spacing:-.02em}
+.edit>*{min-width:0}
+.edit mark{background:linear-gradient(transparent 58%,var(--areia) 58%);color:var(--ink);padding:0 .08em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.edit .cols{columns:2;column-gap:40px;font-size:15px;color:#4a4540;line-height:1.65}
+.edit .cols p{margin-bottom:14px;break-inside:avoid}
+@media (max-width:900px){.edit{grid-template-columns:1fr;gap:30px;padding-top:60px}.edit .cols{columns:1}}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.steps div{padding:30px 30px 30px 0}
+.steps b{font-weight:500;color:var(--mar);font-size:14px}
+.steps h3{font-weight:400;font-size:21px;margin:6px 0;text-transform:lowercase}
+.steps p{color:var(--sub);font-size:15px}
 @media (max-width:820px){.steps{grid-template-columns:1fr}}
 /* product */
-.pp{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;padding:32px 0 40px;align-items:start}
-.pp .big{background:#fff;border-radius:16px;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;padding:12%}
+.pp{display:grid;grid-template-columns:1.35fr 1fr;gap:64px;padding:40px 0 40px;align-items:start}
+.pp .big{background:#fff;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;padding:8%;position:relative}
 .pp .big img{max-height:100%;object-fit:contain}
-.pp .big{position:relative}
-.soon{position:absolute;left:16px;top:16px;right:16px;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13.5px;color:var(--sub)}
+.soon{position:absolute;left:16px;top:16px;right:16px;background:rgba(255,255,255,.94);border:1px solid var(--line);padding:8px 12px;font-size:13px;color:var(--sub)}
 .thumbs{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-.thumbs button{width:78px;height:78px;border-radius:10px;background:#fff;border:1.5px solid var(--line);padding:8px}
+.thumbs button{width:78px;height:78px;background:#fff;border:1px solid var(--line);padding:8px}
 .thumbs button.on{border-color:var(--ink)}.thumbs img{width:100%;height:100%;object-fit:contain}
+.crumb{font-size:13px;color:var(--sub);margin-bottom:14px;text-transform:lowercase}
+.pp h1{font-weight:400;font-size:clamp(34px,3.4vw,50px);letter-spacing:-.02em;line-height:1.05;text-transform:lowercase}
+.pp .ds{color:var(--sub);font-size:15.5px;margin-top:8px}
+.pp .off{display:inline-block;margin-top:22px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--alg);background:var(--oliva);padding:4px 10px;font-weight:500}
+.pp .pr{font-size:28px;margin-top:10px!important}.pp .pr s{font-size:17px}
+.pay.lg{font-size:15px;margin-top:6px}
+.lab{font-size:13px;color:var(--sub)}
+.opt{margin-top:26px}.opt .os{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.opt .os button{border:1px solid var(--line);background:#fff;padding:9px 18px;font-size:14.5px}
+.opt .os button.on{border-color:var(--ink)}
 .sw{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
-.opt .sw button{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:#fff;padding:3px;box-shadow:none}
+.opt .sw button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;padding:3px}
 .opt .sw button.on{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
 .sw i{display:block;width:100%;height:100%;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
-.dots{display:flex;align-items:center;gap:5px;margin-top:6px}.dots i{width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}.dots span{font-size:12.5px;color:var(--sub);margin-left:3px}
-.crumb{font-size:14px;color:var(--sub);margin-bottom:10px}.crumb a{text-decoration:underline;text-underline-offset:3px}
-.pp h1{font-size:clamp(34px,3.6vw,48px);letter-spacing:-.02em}
-.pp .ds{color:var(--sub);font-size:17px;margin-top:6px}
-.pp .pr{margin-top:20px;font-size:26px}.pp .pr s{font-size:18px}
-.lab{font-size:14px;color:var(--sub)}
-.opt{margin-top:24px}.opt .os{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.opt button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 18px;font-size:15px;color:var(--ink)}
-.opt button.on{border-color:var(--oliva);box-shadow:inset 0 0 0 1px var(--oliva)}
-.pp .cta{margin-top:26px;width:100%;padding:16px;font-size:17px}
-.info{margin-top:24px;border-top:1px solid var(--line)}
-.info div{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);font-size:15.5px}
-.info div b{min-width:120px;font-weight:500}.info div span{color:var(--sub)}
+.pp .cta{margin-top:28px;width:100%;padding:17px;font-size:16px}
+.info{margin-top:28px;border-top:1px solid var(--line)}
+.info div{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.info div b{min-width:120px;font-weight:400}.info div span{color:var(--sub)}
 @media (max-width:900px){.pp{grid-template-columns:1fr;gap:24px}}
-.txt{max-width:760px;padding-top:56px;padding-bottom:40px}
-.txt h1{font-size:clamp(36px,4vw,52px);margin-bottom:24px}
-.txt h2{font-weight:600;font-size:22px;margin:32px 0 8px}
-.txt p,.txt li{color:#333;margin-bottom:12px}
+.txt{max-width:760px;padding-top:60px;padding-bottom:40px}
+.txt h1{font-weight:300;font-size:clamp(36px,4vw,56px);margin-bottom:24px;letter-spacing:-.02em}
+.txt h2{font-weight:400;font-size:21px;margin:32px 0 8px;text-transform:lowercase}
+.txt p,.txt li{color:#4a4540;margin-bottom:12px}
 details{border-bottom:1px solid var(--line);padding:18px 0}
-summary{font-size:19px;font-weight:500;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
-summary::after{content:"+"}details[open] summary::after{content:"–"}
-details p{margin-top:10px}
-.todo{background:#FFF3C4;color:#141414;padding:1px 6px;border-radius:4px}
-footer{background:var(--cafe);color:var(--alg);margin-top:80px;padding:64px 0 32px}
-.ft .sl{color:var(--alg)}footer .ft h4{color:var(--alg)}footer .ft a,footer .ft p{color:#D9CBB8}footer .ft a:hover{color:var(--caju)}footer .legal{border-color:#5a3a26;color:#C9B8A2}.sunmark{display:inline-block;vertical-align:-2px;margin-right:8px}
-.ft{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
-.ft img{height:34px;width:auto;margin-bottom:16px}
-.ft .sl{font-size:17px}
-.ft h4{font-weight:600;font-size:15px;margin-bottom:12px}
-.ft a,.ft p{display:block;font-size:15px;margin-bottom:8px;color:var(--sub)}
-.ft a:hover{color:var(--ink)}
-.legal{border-top:1px solid #5a3a26;margin-top:40px;padding-top:20px;font-size:13px;color:var(--sub);line-height:1.6}
-@media (max-width:800px){.ft{grid-template-columns:1fr 1fr}}
-.fwa{position:fixed;right:20px;bottom:20px;z-index:30;width:60px;height:60px;border-radius:50%;background:var(--oliva);display:flex;align-items:center;justify-content:center}
-.fwa svg{width:28px;height:28px;fill:#fff}
+summary{font-size:18px;font-weight:400;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+summary::after{content:"+"}details[open] summary::after{content:"–"}details p{margin-top:10px}
+/* footer bola-like */
+footer{border-top:1px solid var(--line);margin-top:100px;padding:60px 0 30px}
+.ft2{display:grid;grid-template-columns:repeat(3,1fr) 1.3fr;gap:40px}
+.fcol{display:flex;gap:16px}
+.fcol h4{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:300;font-size:22px;border-left:2px solid var(--ink);padding-left:6px;height:max-content;text-transform:lowercase}
+.fcol .ls{border-top:1px solid var(--ink);padding-top:12px;flex:1}
+.fcol .ls a,.fcol .ls p{display:block;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:#4a4540;margin-bottom:7px}
+.fcol .ls a:hover{color:var(--mar)}
+.fsig img{height:34px;margin-bottom:14px}.fsig p{font-size:17px;line-height:1.4}
+.legal{border-top:1px solid var(--line);margin-top:50px;padding-top:20px;font-size:12px;color:var(--sub);line-height:1.6}
+@media (max-width:900px){.ft2{grid-template-columns:1fr 1fr}}
+.fwa{position:fixed;right:20px;bottom:20px;z-index:30;width:58px;height:58px;border-radius:50%;background:var(--oliva);display:flex;align-items:center;justify-content:center}
+.fwa svg{width:26px;height:26px;fill:#fff}
+.todo{background:#FFF3C4;padding:1px 6px}
 </style>
 </head>
 <body>
 
-<div class="strip">Black de estreia: até 50% OFF em toda a curadoria · Entrega grátis em Fortaleza</div>
+<div class="strip">black de estreia · 23 → 30 nov · até 50% off · entrega grátis em fortaleza</div>
 
 <header>
  <div class="wrap hd">
   <a class="logo" href="#inicio" aria-label="Sofazeria, início"><img src="img/logo.png" alt="Sofazeria"></a>
   <nav class="main" id="nav"></nav>
-  <a class="btn wa wa-top" data-wa="geral" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 1.9 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>Fale com a gente</a>
+  <a class="btn wa wa-top" data-wa="geral" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 1.9 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>whatsapp</a>
   <button class="burger" aria-label="Menu" onclick="document.getElementById('mnav').classList.toggle('open')"><span></span><span></span><span></span></button>
  </div>
  <div class="mnav" id="mnav"></div>
@@ -155,44 +211,39 @@ footer{background:var(--cafe);color:var(--alg);margin-top:80px;padding:64px 0 32
 <main>
  <!-- HOME -->
  <section class="view" id="v-inicio">
-  <div class="wrap">
-   <div class="hero">
-    <span class="note"><span class="off" style="margin:0">Black de estreia · até 50% OFF</span></span>
-    <img src="img/p05.webp" alt="Sofá Brera">
-    <div class="tx"><h1>Pop design<br>feito no Ceará</h1>
-     <p><svg class="sunmark" width="26" height="16" viewBox="0 0 26 16"><path d="M3 11a10 10 0 0 1 20 0z" fill="#E58A4E"/><rect x="0" y="12.5" width="26" height="1.6" fill="#3F2515"/><rect x="3" y="15" width="20" height="1" fill="#3F2515" opacity=".5"/></svg>Pra quem mora (ou queria morar) aqui.</p>
-     <div class="ctas"><a class="btn btn-dark" href="#catalogo">Ver a curadoria</a></div></div>
+  <div class="hero2">
+   <div class="ph"><img src="img/p05.webp" alt="Sofá Brera"><small>sofá brera · modular</small></div>
+   <div class="pop"><span class="ast">✱</span>
+    <h1>Black<sup>26</sup><br><span style="font-weight:300;font-size:.42em;letter-spacing:-.01em;text-transform:lowercase">de estreia</span></h1>
+    <div class="dt">23 nov →<br>→ 30 nov</div>
+    <div class="bot"><p>descontos de estreia na curadoria Sofazeria<br>peças sob encomenda · entrega grátis em fortaleza</p><div class="big50"><small>até</small>50% off</div></div>
    </div>
   </div>
-  <div class="wrap"><div class="trust"><div><b>40 anos</b><span>de fábrica no Ceará</span></div><div><b>Sob encomenda</b><span>feito do seu jeito</span></div><div><b>Entrega grátis</b><span>em Fortaleza</span></div><div><b>Atendimento</b><span>de gente, no WhatsApp</span></div></div></div>
-  <div class="wrap sec"><div class="catrow" id="catlist"></div></div>
+  <div class="amb" id="amb"></div>
+  <div class="wrap words"><div class="lb">ou escolha por peça</div><div class="catrow" id="catlist"></div></div>
   <div class="wrap sec">
-   <div class="sec-h"><h2>Destaques da Black</h2><a href="#catalogo">Ver todas</a></div>
-   <div class="grid" id="destaques"></div>
+   <div class="sec-h"><h2>destaques da black</h2><a href="#catalogo">ver todas →</a></div>
+   <div class="feat" id="destaques"></div>
   </div>
-  <div class="wrap sec">
-   <div class="split">
-    <div style="background:var(--oliva);color:var(--alg)"><div><h3>Peças com nova casa</h3><p style="color:#E4E2D2">A Sofazeria é a nova marca de pop design criada pelo grupo +Local. Para a estreia, selecionamos peças que passam a fazer parte da nossa curadoria e deixam de integrar a coleção +Local.</p></div><img src="img/p05.webp" alt="Sofá Brera"></div>
-    <div style="background:#EFE7DA url(img/papel.jpg) center/cover"><div><h3>Cada peça tem nome de casa</h3><p>Mucuripe, Jangada, Guajiru, Meireles, Farol. Nomes do Ceará, pra quem mora (ou queria morar) aqui.</p></div><img src="img/p08.webp" alt="Poltrona Trip" style="width:52%"></div>
+  <div class="wrap edit">
+   <h3><mark>pop design</mark> feito no ceará.<br>pra quem mora <mark>(ou queria morar)</mark> aqui.</h3>
+   <div class="cols">
+    <p>A Sofazeria é a nova marca de pop design criada pelo grupo +Local. Para a estreia, selecionamos peças que passam a fazer parte da nossa curadoria e deixam de integrar a coleção +Local.</p>
+    <p>Cada peça tem nome de casa: Mucuripe, Jangada, Guajiru, Meireles, Farol. Nomes do Ceará, pra quem mora (ou queria morar) aqui.</p>
+    <p>Nada fica parado em estoque esperando você. Cada peça é produzida depois do pedido, com o acabamento que você escolher, e entregue grátis em Fortaleza.</p>
+    <p>Pop não precisa ser óbvio. Democrático não precisa ser comum.</p>
    </div>
   </div>
-  <div class="wrap sec" id="como">
-   <div class="sec-h"><h2>Como funciona</h2></div>
-   <div class="steps">
-    <div><b>01</b><h3>Escolha a peça</h3><p>Veja medidas, acabamentos e o preço da Black.</p></div>
-    <div><b>02</b><h3>Fale com a gente</h3><p>Toque em "Quero essa" e finalize pelo WhatsApp: tecido, tamanho, prazo e pagamento.</p></div>
-    <div><b>03</b><h3>Receba em casa</h3><p>Feita sob encomenda no Ceará e entregue grátis em Fortaleza.</p></div>
-   </div>
-  </div>
+  <div class="wrap quem"><div class="q1"><span class="lb">quem faz</span><h3>Feito sob encomenda na nossa fábrica, em Fortaleza.</h3></div><div class="q2"><p>Cada peça é cortada, estruturada e estofada depois do seu pedido, por marceneiros e tapeceiros do grupo +Local, que faz estofados há mais de 40 anos no Ceará.</p><p class="qs">sob encomenda · até 30 dias úteis · entrega grátis em fortaleza · pix 5% off ou 10x sem juros</p></div></div>
  </section>
 
  <!-- CATALOG -->
  <section class="view" id="v-catalogo">
-  <div class="wrap sec">
-   <div class="sec-h"><h2 id="cat-title">Toda a curadoria</h2><span id="cat-count" style="color:var(--suave)"></span></div>
+  <div class="catlay"><div class="catside"><img id="catimg" src="img/p05.webp" alt=""><span id="catname"></span></div>
+  <div class="catmain"><div class="crumbs">produtos / <span id="cat-title">toda a curadoria</span> · <span id="cat-count"></span></div>
    <div class="chips" id="chips"></div>
-   <div class="grid" id="allgrid"></div>
-  </div>
+   <div class="grid" id="allgrid" style="grid-template-columns:repeat(auto-fill,minmax(210px,1fr))"></div>
+  </div></div>
  </section>
 
  <!-- PRODUCT -->
@@ -241,11 +292,11 @@ footer{background:var(--cafe);color:var(--alg);margin-top:80px;padding:64px 0 32
 
 <footer>
  <div class="wrap">
-  <div class="ft">
-   <div><img src="img/logo-alg.png" alt="Sofazeria"><p class="sl">Pop design feito no Ceará.<br>Pra quem mora (ou queria morar) aqui.</p></div>
-   <div><h4>Curadoria</h4><div id="ftcats"></div></div>
-   <div><h4>Sofazeria</h4><a href="#sobre">Sobre</a><a href="#como-funciona">Como funciona</a><a href="#duvidas">Dúvidas</a><a href="#trocas">Entrega e trocas</a></div>
-   <div><h4>Contato</h4><a data-wa="geral" href="#">WhatsApp</a><a href="https://instagram.com/sofazeria" target="_blank" rel="noopener">@sofazeria</a><a href="mailto:atendimento@sofazeria.com">atendimento@sofazeria.com</a><p>Fortaleza · CE</p></div>
+  <div class="ft2">
+   <div class="fcol"><h4>produtos</h4><div class="ls" id="ftcats"></div></div>
+   <div class="fcol"><h4>sofazeria</h4><div class="ls"><a href="#sobre">sobre</a><a href="#duvidas">dúvidas</a><a href="#trocas">entrega e trocas</a></div></div>
+   <div class="fcol"><h4>contato</h4><div class="ls"><a data-wa="geral" href="#">whatsapp · (85) 99188-1948</a><a href="mailto:atendimento@sofazeria.com">atendimento@sofazeria.com</a><a href="https://instagram.com/sofazeria" target="_blank" rel="noopener">@sofazeria</a><p>fortaleza · ce</p></div></div>
+   <div class="fsig"><img src="img/logo.png" alt="Sofazeria"><p>Pop design feito no Ceará.<br>Pra quem mora (ou queria morar) aqui.</p></div>
   </div>
   <div class="legal">Preço anterior: valor praticado pelo grupo +Local para a mesma peça, antes da passagem para a Sofazeria. Preços da Black válidos de 23 a 30/11/2026. Imagens ilustrativas; cores e acabamentos podem variar. Medidas aproximadas, em centímetros.<br>SOFAZERIA COMERCIO LTDA · CNPJ 62.571.108/0001-91 · R. Uberlândia, 690 · Messejana · Fortaleza/CE · CEP 60871-110 · Uma marca do grupo +Local.</div>
  </div>
@@ -306,6 +357,26 @@ const CORES={
   {nome:"Mostarda",hex:"#C6952F",amostra:"",fotos:[]}]
 };
 const FOTOS={};
+const AMB=[
+ {id:"sala",nome:"sala",cats:["sofas","poltronas","mesas-de-apoio","carrinhos"],img:"img/p01.webp",bg:"var(--areia)",txt:"Sofás para receber, poltronas para ficar e as mesinhas que seguram o café."},
+ {id:"jantar",nome:"jantar",cats:["mesas-de-jantar","cadeiras"],img:"img/p15.webp",bg:"var(--tile)",txt:"Mesa grande, conversa longa. Para o almoço de domingo virar fim de tarde."},
+ {id:"quarto",nome:"quarto",cats:["camas","mesas-de-apoio"],img:"img/p24.webp",bg:"var(--areia)",txt:"Cabeceira estofada e o essencial ao lado da cama."},
+ {id:"leitura",nome:"canto de leitura",cats:["poltronas","mesas-de-apoio"],img:"img/p08.webp",bg:"var(--tile)",txt:"Uma poltrona, uma luz, uma mesinha. O melhor lugar da casa."}];
+/* de onde vem o nome (só nomes com origem confirmada) */
+const NOMES={
+ "Mucuripe":"A enseada de Fortaleza onde as jangadas voltam no fim da tarde e o sol se põe no mar.",
+ "Jangada":"O barco de vela triangular dos pescadores do Ceará, símbolo do nosso litoral.",
+ "Onda":"O movimento do mar de Fortaleza, desenhado em um encosto contínuo.",
+ "Guajiru":"Praia do litoral oeste do Ceará, conhecida pelo vento e pelas lagoas.",
+ "Ceci":"A heroína de O Guarani, romance de José de Alencar, escritor cearense.",
+ "Peri":"O herói de O Guarani, de José de Alencar, escritor cearense.",
+ "Bira":"De Ubirajara, romance de José de Alencar.",
+ "Ipê":"A árvore que floresce no fim do inverno e pinta a cidade de amarelo e roxo.",
+ "Brisa":"O vento que vem do mar e refresca as tardes de Fortaleza.",
+ "Farol":"Em homenagem ao Farol do Mucuripe, um dos marcos da cidade.",
+ "Bilro":"Da renda de bilro, o artesanato tradicional das rendeiras do Ceará.",
+ "Meireles":"O bairro à beira-mar de Fortaleza, do calçadão e do pôr do sol.",
+ "Barra":"Da Barra do Ceará, onde o rio encontra o mar e a cidade começou."};
 /* ===================================== */
 const slug=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-");
 const prods=P.map(([c,n,ds,price,img,v])=>{const cat=CATS.find(x=>x.id==c);const orig=Math.round(price/(1-cat.d)/10)*10;
@@ -317,27 +388,30 @@ const juros=()=>SEM_JUROS?" sem juros":"";
 const waLink=t=>`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(t)}`;
 const $=s=>document.querySelector(s);
 
-function card(p){return `<a class="card" href="#${p.id}"><div class="ph"><img loading="lazy" src="${p.img}" alt="${p.full}"></div>
-<span class="off">Black ${p.pct}% OFF</span>
-<div class="nm">${p.full}</div><div class="ds">${p.ds}</div>${CORES[p.id]?`<div class="dots">${CORES[p.id].map(c=>`<i title="${c.nome}" style="background:${c.amostra?`url(${c.amostra}) center/cover`:c.hex}"></i>`).join("")}<span>${CORES[p.id].length} cores</span></div>`:""}
-<div class="pr"><s>${brl(p.orig)}</s><b>${brl(p.price)}</b></div><div class="pay">${PARCELAS}x de ${brl(parc(p.price))}${juros()}<br><span class="px">${brl(pix(p.price))} no Pix</span></div>${p.v&&p.v.nota?`<div class="vn">${p.v.nota}</div>`:""}</a>`}
+function card(p,cls){const alt=(FOTOS[p.id]||[])[0];return `<a class="card ${cls||""}" href="#${p.id}"><div class="ph${alt?" hv":""}"><img loading="lazy" src="${p.img}" alt="${p.full}">${alt?`<img class="alt" loading="lazy" src="${alt}" alt="">`:""}</div>
+<div class="nm">${p.full}</div>${CORES[p.id]?`<div class="dots">${CORES[p.id].map(c=>`<i title="${c.nome}" style="background:${c.amostra?`url(${c.amostra}) center/cover`:c.hex}"></i>`).join("")}<span>${CORES[p.id].length} cores</span></div>`:""}
+<div class="pr"><b>${brl(p.price)}</b><s>${brl(p.orig)}</s><span class="pct">−${p.pct}%</span></div><div class="pay">${PARCELAS}x de ${brl(parc(p.price))}${juros()} · <span class="px">${brl(pix(p.price))} no pix</span></div></a>`}
 
 // nav, lists
-const navHTML=CATS.map(c=>`<a href="#${c.id}" data-c="${c.id}">${c.nome}</a>`).join("")+`<a href="#sobre">Sobre</a>`;
+const navHTML=AMB.map(a=>`<a href="#${a.id}" data-c="${a.id}">${a.nome}</a>`).join("")+`<a href="#catalogo" data-c="catalogo">todos os produtos</a><a href="#sobre">sobre</a>`;
 $("#nav").innerHTML=navHTML; $("#mnav").innerHTML=navHTML+`<a data-wa="geral" href="#">WhatsApp</a>`;
 $("#catlist").innerHTML=CATS.map(c=>`<a href="#${c.id}">${c.nome}</a>`).join("");
+$("#amb").innerHTML=AMB.map((a,i)=>`<a href="#${a.id}" class="amb${i}" style="background:${a.bg}"><img src="${a.img}" alt=""><div><h3>${a.nome}</h3><p>${a.txt}</p><span>ver peças →</span></div></a>`).join("");
 $("#ftcats").innerHTML=CATS.map(c=>`<a href="#${c.id}">${c.nome}</a>`).join("");
-$("#destaques").innerHTML=["sofa-brera","poltrona-trip","sofa-feijo","cadeira-ceci","mesa-ipe","poltrona-lua","sofa-jangada","carrinho-bar-barra"].map(s=>card(prods.find(p=>p.id=="p-"+s))).join("");
-$("#chips").innerHTML=`<button data-f="catalogo">Todas</button>`+CATS.map(c=>`<button data-f="${c.id}">${c.nome}</button>`).join("");
+$("#destaques").innerHTML=["sofa-feijo","poltrona-trip","cadeira-ceci","mesa-ipe","poltrona-lua","sofa-jangada","poltrona-pacha","mesa-de-apoio-bilro","carrinho-bar-barra"].map((s,i)=>card(prods.find(p=>p.id=="p-"+s),i==0?"big":"")).join("");
+$("#chips").innerHTML=`<button data-f="catalogo">todas</button>`+CATS.map(c=>`<button data-f="${c.id}">${c.nome}</button>`).join("");
 $("#chips").onclick=e=>{const f=e.target.dataset.f;if(f)location.hash=f};
 $("#wa-txt").textContent="(85) 99188-1948";
 
 function setWA(){document.querySelectorAll('[data-wa="geral"]').forEach(a=>{a.href=waLink("Oi, Sofazeria! Vim pelo site e quero saber mais sobre as peças.");a.target="_blank";a.rel="noopener"})}
 
 function show(v){document.querySelectorAll(".view").forEach(x=>x.classList.toggle("on",x.id=="v-"+v));window.scrollTo(0,0);$("#mnav").classList.remove("open")}
-function catalog(c){const list=c?prods.filter(p=>p.c==c):prods;const cat=CATS.find(x=>x.id==c);
- $("#cat-title").textContent=cat?cat.nome:"Toda a curadoria";$("#cat-count").textContent=list.length+(list.length>1?" peças":" peça")+(cat?` · BLACK ${Math.round(cat.d*100)}% OFF`:"");
+function catalog(c){const amb=AMB.find(x=>x.id==c);const list=amb?prods.filter(p=>amb.cats.includes(p.c)):c?prods.filter(p=>p.c==c):prods;const cat=CATS.find(x=>x.id==c)||(amb?{nome:amb.nome,d:null}:null);
+ $("#cat-title").textContent=cat?cat.nome.toLowerCase():"toda a curadoria";$("#cat-count").textContent=list.length+(list.length>1?" peças":" peça")+(cat&&cat.d?` · black ${Math.round(cat.d*100)}% off`:"");
  $("#allgrid").innerHTML=list.map(card).join("");
+ const side=(p)=>{const im=$("#catimg");if(im.dataset.src==p.img)return;im.style.opacity=0;setTimeout(()=>{im.src=p.img;im.dataset.src=p.img;im.style.opacity=1},180);$("#catname").textContent=p.full.toLowerCase()};
+ side(list[0]);
+ document.querySelectorAll("#allgrid .card").forEach((el,k)=>{el.addEventListener("mouseenter",()=>side(list[k]));el.addEventListener("focus",()=>side(list[k]))});
  document.querySelectorAll("#chips button").forEach(b=>b.classList.toggle("on",b.dataset.f==(c||"catalogo")));
  document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("on",a.dataset.c==c));show("catalogo")}
 function product(p){let sel=p.v?p.v.ops[0]:null;const cores=CORES[p.id]||null;let ci=0,fi=0;
@@ -354,8 +428,8 @@ function product(p){let sel=p.v?p.v.ops[0]:null;const cores=CORES[p.id]||null;le
  ${cores?`<div class="opt"><span class="lab">Cor: <b style="color:var(--ink);font-weight:500">${cor}</b></span><div class="sw">${cores.map((c,k)=>`<button class="${k==ci?"on":""}" data-c="${k}" title="${c.nome}" aria-label="${c.nome}"><i style="background:${c.amostra?`url(${c.amostra}) center/cover`:c.hex}"></i></button>`).join("")}</div></div>`:""}
  ${p.v?`<div class="opt"><span class="lab">${p.v.lbl}</span><div class="os">${p.v.ops.map(o=>`<button class="${o==sel?"on":""}" data-o="${o}">${o}</button>`).join("")}</div></div>`:""}
  <a class="btn btn-dark cta" href="${waLink(msg)}" target="_blank" rel="noopener">Quero essa · falar no WhatsApp</a>
- <div class="info"><div><b>Produção</b><span>Sob encomenda · ${PRAZO}</span></div><div><b>Pagamento</b><span>Pix com ${Math.round(PIX_OFF*100)}% off ou cartão em até ${PARCELAS}x${juros()}</span></div><div><b>Entrega</b><span>Grátis em Fortaleza</span></div><div><b>Acabamentos</b><span>${cores?"Cores acima; outros tecidos sob consulta":"Tecidos e cores apresentados no atendimento"}</span></div><div><b>Preço Black</b><span>Válido de 23 a 30/11/2026</span></div></div>
- </div></div>`;
+ ${NOMES[p.n]?`<div class="story"><span class="lb">de onde vem o nome</span><p><b>${p.n}.</b> ${NOMES[p.n]}</p></div>`:""}<div class="info"><div><b>Produção</b><span>Sob encomenda · ${PRAZO}</span></div><div><b>Pagamento</b><span>Pix com ${Math.round(PIX_OFF*100)}% off ou cartão em até ${PARCELAS}x${juros()}</span></div><div><b>Entrega</b><span>Grátis em Fortaleza</span></div><div><b>Acabamentos</b><span>${cores?"Cores acima; outros tecidos sob consulta":"Tecidos e cores apresentados no atendimento"}</span></div><div><b>Preço Black</b><span>Válido de 23 a 30/11/2026</span></div></div>
+ </div></div><div class="pp-quem"><span class="lb">quem faz</span><p>Produzida sob encomenda na nossa fábrica, em Fortaleza, por marceneiros e tapeceiros do grupo +Local, com mais de 40 anos de estofaria no Ceará.</p></div><a class="mbar" href="${waLink(msg)}" target="_blank" rel="noopener"><span>${brl(p.price)} <s>${brl(p.orig)}</s></span><b>quero essa →</b></a>`;
  document.querySelectorAll(".opt .os button").forEach(b=>b.onclick=()=>{sel=b.dataset.o;render()});
  document.querySelectorAll(".sw button").forEach(b=>b.onclick=()=>{ci=+b.dataset.c;fi=0;render()});
  document.querySelectorAll(".thumbs button").forEach(b=>b.onclick=()=>{fi=+b.dataset.f;render()})};
@@ -365,12 +439,15 @@ function product(p){let sel=p.v?p.v.ops[0]:null;const cores=CORES[p.id]||null;le
  document.title=p.full+" · Sofazeria";show("produto")}
 function route(){const h=location.hash.slice(1)||"inicio";document.title="Sofazeria · Pop design feito no Ceará";
  if(h=="catalogo")return catalog(null);
- if(CATS.some(c=>c.id==h))return catalog(h);
+ if(CATS.some(c=>c.id==h)||AMB.some(a=>a.id==h))return catalog(h);
  const p=prods.find(x=>x.id==h);if(p)return product(p);
- if(h=="como-funciona"){show("inicio");setTimeout(()=>$("#como").scrollIntoView(),30);return}
+ if(h=="como-funciona")return show("duvidas");
  if(["sobre","trocas","duvidas"].includes(h))return show(h);
  show("inicio")}
 window.addEventListener("hashchange",route);setWA();route();
+const io=("IntersectionObserver" in window)?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12}):null;
+const rv=()=>document.querySelectorAll(".view.on .card,.view.on .amb>a,.view.on .edit,.view.on .quem").forEach(el=>{if(!el.classList.contains("rv")){el.classList.add("rv");io?io.observe(el):el.classList.add("in")}});
+rv();window.addEventListener("hashchange",()=>setTimeout(rv,50));
 </script>
 </body>
 </html>
