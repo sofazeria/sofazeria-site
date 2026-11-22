@@ -110,7 +110,8 @@ nav.main a:hover::after,nav.main a.on::after,.wa-top:hover::after,.chips button:
 @media (max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr);gap:36px 14px}}
 .card .ph{aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;padding:10%}
-.card .ph img{max-height:100%;object-fit:contain;transition:transform .45s}
+.card .ph img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;transition:transform .45s}
+.card .ph img.alt{max-width:none!important;max-height:none!important}
 .card:hover .ph img{transform:scale(1.05)}
 .card .nm{font-weight:400;font-size:15.5px;margin-top:10px;text-transform:lowercase}
 .card .ds{display:none}
@@ -358,7 +359,13 @@ const CORES={
   {nome:"Cinza",hex:"#9B9993",amostra:"",fotos:[]},
   {nome:"Mostarda",hex:"#C6952F",amostra:"",fotos:[]}]
 };
-const FOTOS={"p-sofa-mucuripe":["img/p01b.webp"],"p-poltrona-pacha":["img/p09b.webp"],"p-cadeira-peri":["img/p12b.webp"]};
+const FOTOS={"p-sofa-mucuripe":["img/p01b.webp"],"p-cadeira-peri":["img/p12b.webp"]};
+/* maior medida visível de cada peça (cm), pela numeração da foto: deixa as miniaturas na mesma escala */
+const REAL={1:210,2:200,3:200,4:220,5:200,6:220,7:86,8:85,9:80,10:78,11:89,12:85,13:80,14:75,15:120,16:220,17:220,18:55,19:50,20:55,21:150,22:80,23:100,24:180};
+/* em cada grade, a maior peça ocupa o quadro todo e as outras ficam em proporção a ela */
+function escalar(){const gs=new Set();document.querySelectorAll(".card .ph img[data-r]").forEach(i=>gs.add(i.closest(".card").parentElement));
+ gs.forEach(g=>{const ims=[...g.querySelectorAll(".card .ph img[data-r]")];const mx=Math.max(...ims.map(i=>+i.dataset.r));
+  ims.forEach(i=>{const f=Math.round(Math.max(.5,Math.pow(+i.dataset.r/mx,.6))*100)+"%";i.style.maxWidth=f;i.style.maxHeight=f})})}
 /* peças fora da vitrine até chegar foto boa (remova o nome da lista para voltar) */
 const OCULTAS=[];
 const AMB=[
@@ -384,7 +391,7 @@ const NOMES={
 /* ===================================== */
 const slug=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-");
 const prods=P.map(([c,n,ds,price,img,v])=>{const cat=CATS.find(x=>x.id==c);const orig=Math.round(price/(1-cat.d)/10)*10;
- return {c,cat,n,full:cat.un+" "+n,ds,price,orig,pct:Math.round(cat.d*100),img:`img/p${String(img).padStart(2,"0")}.webp`,v,id:"p-"+slug(cat.un+" "+n)}});
+ return {c,cat,n,full:cat.un+" "+n,ds,price,orig,pct:Math.round(cat.d*100),img:`img/p${String(img).padStart(2,"0")}.webp`,v,r:REAL[img]||120,id:"p-"+slug(cat.un+" "+n)}});
 const prodsAll=prods.slice();prods.splice(0,prods.length,...prods.filter(p=>!OCULTAS.includes(p.id.slice(2))));
 const CATSV=CATS.filter(c=>prods.some(p=>p.c==c.id));
 if(!prods.some(p=>p.c=="camas")){const qi=AMB.findIndex(a=>a.id=="quarto");if(qi>=0)AMB.splice(qi,1)}
@@ -395,7 +402,7 @@ const juros=()=>SEM_JUROS?" sem juros":"";
 const waLink=t=>`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(t)}`;
 const $=s=>document.querySelector(s);
 
-function card(p,cls){const alt=(FOTOS[p.id]||[])[0];return `<a class="card ${cls||""}" href="#${p.id}"><div class="ph${alt?" hv":""}"><img loading="lazy" src="${p.img}" alt="${p.full}">${alt?`<img class="alt" loading="lazy" src="${alt}" alt="">`:""}</div>
+function card(p,cls){const alt=(FOTOS[p.id]||[])[0];return `<a class="card ${cls||""}" href="#${p.id}"><div class="ph${alt?" hv":""}"><img loading="lazy" src="${p.img}" alt="${p.full}" data-r="${p.r}">${alt?`<img class="alt" loading="lazy" src="${alt}" alt="">`:""}</div>
 <div class="nm">${p.full}</div>${CORES[p.id]?`<div class="dots">${CORES[p.id].map(c=>`<i title="${c.nome}" style="background:${c.amostra?`url(${c.amostra}) center/cover`:c.hex}"></i>`).join("")}<span>${CORES[p.id].length} cores</span></div>`:""}
 <div class="pr"><b>${brl(p.price)}</b><s>${brl(p.orig)}</s><span class="pct">−${p.pct}%</span></div><div class="pay">${PARCELAS}x de ${brl(parc(p.price))}${juros()} · <span class="px">${brl(pix(p.price))} no pix</span></div></a>`}
 
@@ -454,7 +461,7 @@ function route(){const h=location.hash.slice(1)||"inicio";document.title="Sofaze
 window.addEventListener("hashchange",route);setWA();route();
 const io=("IntersectionObserver" in window)?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12}):null;
 const rv=()=>document.querySelectorAll(".view.on .card,.view.on .amb>a,.view.on .edit,.view.on .quem").forEach(el=>{if(!el.classList.contains("rv")){el.classList.add("rv");io?io.observe(el):el.classList.add("in")}});
-rv();window.addEventListener("hashchange",()=>setTimeout(rv,50));
+rv();escalar();window.addEventListener("hashchange",()=>setTimeout(()=>{rv();escalar()},50));
 </script>
 </body>
 </html>
