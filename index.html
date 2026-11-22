@@ -308,7 +308,7 @@ $("#ftcats").innerHTML=CATS.map(c=>`<a href="#${c.id}">${c.nome}</a>`).join("");
 $("#destaques").innerHTML=["sofa-brera","poltrona-trip","sofa-feijo","cadeira-ceci","mesa-ipe","poltrona-lua","sofa-jangada","carrinho-bar-barra"].map(s=>card(prods.find(p=>p.id=="p-"+s))).join("");
 $("#chips").innerHTML=`<button data-f="catalogo">Todas</button>`+CATS.map(c=>`<button data-f="${c.id}">${c.nome}</button>`).join("");
 $("#chips").onclick=e=>{const f=e.target.dataset.f;if(f)location.hash=f};
-$("#wa-txt").textContent="+"+WHATSAPP;
+$("#wa-txt").textContent="(85) 99188-1948";
 
 function setWA(){document.querySelectorAll('[data-wa="geral"]').forEach(a=>{a.href=waLink("Oi, Sofazeria! Vim pelo site e quero saber mais sobre as peças.");a.target="_blank";a.rel="noopener"})}
 
