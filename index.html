@@ -72,6 +72,8 @@ nav.main a:hover,nav.main a.on{color:var(--ink);font-weight:500}
 .amb .amb0{grid-row:span 2;min-height:760px}.amb .amb0 img{width:92%;align-self:center;margin:auto 0}
 .amb .amb3{grid-column:span 2}.amb .amb3 img{width:34%;position:absolute;right:34px;bottom:24px}
 @media (max-width:900px){.amb{grid-template-columns:1fr}.amb .amb0{grid-row:auto;min-height:480px}.amb .amb3{grid-column:auto}.amb .amb3 img{position:static;width:50%}}
+.amb.n3{grid-template-columns:1.5fr 1fr}.amb.n3 .amb0{grid-row:span 2}.amb.n3>a:not(.amb0){min-height:380px}.amb.n3 .amb2 img{width:46%}
+@media (max-width:900px){.amb.n3{grid-template-columns:1fr}}
 /* destaques assimétrico */
 .feat{display:grid;grid-template-columns:repeat(4,1fr);gap:48px 28px}
 .feat .card.big{grid-column:span 2;grid-row:span 2}
@@ -357,8 +359,10 @@ const CORES={
   {nome:"Mostarda",hex:"#C6952F",amostra:"",fotos:[]}]
 };
 const FOTOS={};
+/* peças fora da vitrine até chegar foto boa (remova o nome da lista para voltar) */
+const OCULTAS=["sofa-mucuripe","sofa-onda","sofa-guajiru","cama-julia","poltrona-feijo","poltrona-pacha","cadeira-peri","cadeira-isis","mesa-mov","mesa-brisa","mesa-de-apoio-palma","mesa-de-apoio-meireles","carrinho-bar-jobi"];
 const AMB=[
- {id:"sala",nome:"sala",cats:["sofas","poltronas","mesas-de-apoio","carrinhos"],img:"img/p01.webp",bg:"var(--areia)",txt:"Sofás para receber, poltronas para ficar e as mesinhas que seguram o café."},
+ {id:"sala",nome:"sala",cats:["sofas","poltronas","mesas-de-apoio","carrinhos"],img:"img/p02.webp",bg:"var(--areia)",txt:"Sofás para receber, poltronas para ficar e as mesinhas que seguram o café."},
  {id:"jantar",nome:"jantar",cats:["mesas-de-jantar","cadeiras"],img:"img/p15.webp",bg:"var(--tile)",txt:"Mesa grande, conversa longa. Para o almoço de domingo virar fim de tarde."},
  {id:"quarto",nome:"quarto",cats:["camas","mesas-de-apoio"],img:"img/p24.webp",bg:"var(--areia)",txt:"Cabeceira estofada e o essencial ao lado da cama."},
  {id:"leitura",nome:"canto de leitura",cats:["poltronas","mesas-de-apoio"],img:"img/p08.webp",bg:"var(--tile)",txt:"Uma poltrona, uma luz, uma mesinha. O melhor lugar da casa."}];
@@ -381,6 +385,9 @@ const NOMES={
 const slug=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-");
 const prods=P.map(([c,n,ds,price,img,v])=>{const cat=CATS.find(x=>x.id==c);const orig=Math.round(price/(1-cat.d)/10)*10;
  return {c,cat,n,full:cat.un+" "+n,ds,price,orig,pct:Math.round(cat.d*100),img:`img/p${String(img).padStart(2,"0")}.webp`,v,id:"p-"+slug(cat.un+" "+n)}});
+const prodsAll=prods.slice();prods.splice(0,prods.length,...prods.filter(p=>!OCULTAS.includes(p.id.slice(2))));
+const CATSV=CATS.filter(c=>prods.some(p=>p.c==c.id));
+if(!prods.some(p=>p.c=="camas")){const qi=AMB.findIndex(a=>a.id=="quarto");if(qi>=0)AMB.splice(qi,1)}
 const brl=v=>"R$ "+v.toLocaleString("pt-BR",Number.isInteger(v)?{}:{minimumFractionDigits:2,maximumFractionDigits:2});
 const pix=v=>Math.round(v*(1-PIX_OFF)*100)/100;
 const parc=v=>Math.round(v/PARCELAS*100)/100;
@@ -395,11 +402,11 @@ function card(p,cls){const alt=(FOTOS[p.id]||[])[0];return `<a class="card ${cls
 // nav, lists
 const navHTML=AMB.map(a=>`<a href="#${a.id}" data-c="${a.id}">${a.nome}</a>`).join("")+`<a href="#catalogo" data-c="catalogo">todos os produtos</a><a href="#sobre">sobre</a>`;
 $("#nav").innerHTML=navHTML; $("#mnav").innerHTML=navHTML+`<a data-wa="geral" href="#">WhatsApp</a>`;
-$("#catlist").innerHTML=CATS.map(c=>`<a href="#${c.id}">${c.nome}</a>`).join("");
-$("#amb").innerHTML=AMB.map((a,i)=>`<a href="#${a.id}" class="amb${i}" style="background:${a.bg}"><img src="${a.img}" alt=""><div><h3>${a.nome}</h3><p>${a.txt}</p><span>ver peças →</span></div></a>`).join("");
-$("#ftcats").innerHTML=CATS.map(c=>`<a href="#${c.id}">${c.nome}</a>`).join("");
-$("#destaques").innerHTML=["sofa-feijo","poltrona-trip","cadeira-ceci","mesa-ipe","poltrona-lua","sofa-jangada","poltrona-pacha","mesa-de-apoio-bilro","carrinho-bar-barra"].map((s,i)=>card(prods.find(p=>p.id=="p-"+s),i==0?"big":"")).join("");
-$("#chips").innerHTML=`<button data-f="catalogo">todas</button>`+CATS.map(c=>`<button data-f="${c.id}">${c.nome}</button>`).join("");
+$("#catlist").innerHTML=CATSV.map(c=>`<a href="#${c.id}">${c.nome}</a>`).join("");
+$("#amb").className="amb n"+AMB.length;$("#amb").innerHTML=AMB.map((a,i)=>`<a href="#${a.id}" class="amb${i}" style="background:${a.bg}"><img src="${a.img}" alt=""><div><h3>${a.nome}</h3><p>${a.txt}</p><span>ver peças →</span></div></a>`).join("");
+$("#ftcats").innerHTML=CATSV.map(c=>`<a href="#${c.id}">${c.nome}</a>`).join("");
+$("#destaques").innerHTML=["sofa-feijo","poltrona-trip","cadeira-ceci","mesa-ipe","poltrona-lua","sofa-jangada","cadeira-bira","mesa-de-apoio-bilro","carrinho-bar-barra"].map((s,i)=>card(prods.find(p=>p.id=="p-"+s),i==0?"big":"")).join("");
+$("#chips").innerHTML=`<button data-f="catalogo">todas</button>`+CATSV.map(c=>`<button data-f="${c.id}">${c.nome}</button>`).join("");
 $("#chips").onclick=e=>{const f=e.target.dataset.f;if(f)location.hash=f};
 $("#wa-txt").textContent="(85) 99188-1948";
 
@@ -410,7 +417,7 @@ function catalog(c){const amb=AMB.find(x=>x.id==c);const list=amb?prods.filter(p
  $("#cat-title").textContent=cat?cat.nome.toLowerCase():"toda a curadoria";$("#cat-count").textContent=list.length+(list.length>1?" peças":" peça")+(cat&&cat.d?` · black ${Math.round(cat.d*100)}% off`:"");
  $("#allgrid").innerHTML=list.map(card).join("");
  const side=(p)=>{const im=$("#catimg");if(im.dataset.src==p.img)return;im.style.opacity=0;setTimeout(()=>{im.src=p.img;im.dataset.src=p.img;im.style.opacity=1},180);$("#catname").textContent=p.full.toLowerCase()};
- side(list[0]);
+ if(list[0])side(list[0]);
  document.querySelectorAll("#allgrid .card").forEach((el,k)=>{el.addEventListener("mouseenter",()=>side(list[k]));el.addEventListener("focus",()=>side(list[k]))});
  document.querySelectorAll("#chips button").forEach(b=>b.classList.toggle("on",b.dataset.f==(c||"catalogo")));
  document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("on",a.dataset.c==c));show("catalogo")}
