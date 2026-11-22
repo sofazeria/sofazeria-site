@@ -92,6 +92,16 @@ h1{font-weight:600;font-size:clamp(44px,6vw,84px);line-height:1;letter-spacing:-
 .pp{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;padding:32px 0 40px;align-items:start}
 .pp .big{background:var(--tile);border-radius:16px;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;padding:12%}
 .pp .big img{max-height:100%;object-fit:contain}
+.pp .big{position:relative}
+.soon{position:absolute;left:16px;top:16px;right:16px;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13.5px;color:var(--sub)}
+.thumbs{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.thumbs button{width:78px;height:78px;border-radius:10px;background:var(--tile);border:1.5px solid transparent;padding:8px}
+.thumbs button.on{border-color:var(--ink)}.thumbs img{width:100%;height:100%;object-fit:contain}
+.sw{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.opt .sw button{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:#fff;padding:3px;box-shadow:none}
+.opt .sw button.on{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.sw i{display:block;width:100%;height:100%;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.dots{display:flex;align-items:center;gap:5px;margin-top:6px}.dots i{width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}.dots span{font-size:12.5px;color:var(--sub);margin-left:3px}
 .crumb{font-size:14px;color:var(--sub);margin-bottom:10px}.crumb a{text-decoration:underline;text-underline-offset:3px}
 .pp h1{font-size:clamp(34px,3.6vw,48px);letter-spacing:-.02em}
 .pp .ds{color:var(--sub);font-size:17px;margin-top:6px}
@@ -285,6 +295,18 @@ const P=[
  ["mesas-de-apoio","Meireles","Conjunto com 3 tamanhos (P, M e G)",2990,21],
  ["carrinhos","Barra","L 80 × P 40 × A 77 cm",2490,22],
  ["carrinhos","Jobi","L 100 × P 40 × A 75 cm",2190,23]];
+/* ===== CORES E FOTOS POR PRODUTO =====
+   cores: nome, hex (cor da bolinha), amostra (foto do tecido, opcional), fotos (fotos da peça nessa cor)
+   fotos extras sem cor: FOTOS["id-do-produto"] = ["img/...","img/..."] */
+const CORES={
+ "p-sofa-feijo":[
+  {nome:"Chenille Verde",hex:"#4F5B3A",amostra:"",fotos:["img/p03.webp"]},
+  {nome:"Off-white",hex:"#E9E4D8",amostra:"",fotos:[]},
+  {nome:"Cinza",hex:"#9B9993",amostra:"",fotos:[]},
+  {nome:"Mostarda",hex:"#C6952F",amostra:"",fotos:[]}]
+};
+const FOTOS={};
+/* ===================================== */
 const slug=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-");
 const prods=P.map(([c,n,ds,price,img,v])=>{const cat=CATS.find(x=>x.id==c);const orig=Math.round(price/(1-cat.d)/10)*10;
  return {c,cat,n,full:cat.un+" "+n,ds,price,orig,pct:Math.round(cat.d*100),img:`img/p${String(img).padStart(2,"0")}.webp`,v,id:"p-"+slug(cat.un+" "+n)}});
@@ -297,7 +319,7 @@ const $=s=>document.querySelector(s);
 
 function card(p){return `<a class="card" href="#${p.id}"><div class="ph"><img loading="lazy" src="${p.img}" alt="${p.full}"></div>
 <span class="off">Black ${p.pct}% OFF</span>
-<div class="nm">${p.full}</div><div class="ds">${p.ds}</div>
+<div class="nm">${p.full}</div><div class="ds">${p.ds}</div>${CORES[p.id]?`<div class="dots">${CORES[p.id].map(c=>`<i title="${c.nome}" style="background:${c.amostra?`url(${c.amostra}) center/cover`:c.hex}"></i>`).join("")}<span>${CORES[p.id].length} cores</span></div>`:""}
 <div class="pr"><s>${brl(p.orig)}</s><b>${brl(p.price)}</b></div><div class="pay">${PARCELAS}x de ${brl(parc(p.price))}${juros()}<br><span class="px">${brl(pix(p.price))} no Pix</span></div>${p.v&&p.v.nota?`<div class="vn">${p.v.nota}</div>`:""}</a>`}
 
 // nav, lists
@@ -318,18 +340,25 @@ function catalog(c){const list=c?prods.filter(p=>p.c==c):prods;const cat=CATS.fi
  $("#allgrid").innerHTML=list.map(card).join("");
  document.querySelectorAll("#chips button").forEach(b=>b.classList.toggle("on",b.dataset.f==(c||"catalogo")));
  document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("on",a.dataset.c==c));show("catalogo")}
-function product(p){let sel=p.v?p.v.ops[0]:null;
- const render=()=>{const msg=`Oi, Sofazeria! Quero a ${p.full}${sel?` (${p.v.lbl.toLowerCase()}: ${sel})`:""}, que está por ${brl(p.price)} na Black (${brl(pix(p.price))} no Pix). Pode me passar o prazo de entrega?`;
- $("#pp").innerHTML=`<div class="pp"><div class="big"><img src="${p.img}" alt="${p.full}"></div>
+function product(p){let sel=p.v?p.v.ops[0]:null;const cores=CORES[p.id]||null;let ci=0,fi=0;
+ const fotosDa=()=>{const c=cores&&cores[ci];const base=[p.img,...(FOTOS[p.id]||[])];if(!c)return{list:base,falta:false};return c.fotos.length?{list:[...c.fotos,...(FOTOS[p.id]||[])],falta:false}:{list:base,falta:true}};
+ const render=()=>{const cor=cores?cores[ci].nome:null;const F=fotosDa();if(fi>=F.list.length)fi=0;
+ const extra=[sel?`${p.v.lbl.toLowerCase()}: ${sel}`:"",cor?`cor: ${cor}`:""].filter(Boolean).join(", ");
+ const msg=`Oi, Sofazeria! Quero a ${p.full}${extra?` (${extra})`:""}, que está por ${brl(p.price)} na Black (${brl(pix(p.price))} no Pix). Pode me passar o prazo de entrega?`;
+ $("#pp").innerHTML=`<div class="pp"><div><div class="big">${F.falta?`<span class="soon">Foto na cor ${cor} em breve · veja a amostra do tecido</span>`:""}<img src="${F.list[fi]}" alt="${p.full}${cor?" "+cor:""}"></div>
+ ${F.list.length>1?`<div class="thumbs">${F.list.map((f,k)=>`<button class="${k==fi?"on":""}" data-f="${k}"><img src="${f}" alt=""></button>`).join("")}</div>`:""}</div>
  <div><div class="crumb"><a href="#catalogo">Curadoria</a> / <a href="#${p.c}">${p.cat.nome}</a></div>
  <h1>${p.full}</h1><div class="ds">${p.ds}</div>
  <span class="off">Black ${p.pct}% OFF</span><div class="pr" style="margin-top:4px"><s>${brl(p.orig)}</s><b>${brl(p.price)}</b></div><div class="pay lg">em até ${PARCELAS}x de ${brl(parc(p.price))}${juros()}<br><span class="px">ou ${brl(pix(p.price))} no Pix (${Math.round(PIX_OFF*100)}% off)</span></div><div class="lab" style="margin-top:6px">Preço anterior riscado · feito sob encomenda no Ceará</div>
  ${p.v&&p.v.nota?`<div class="vn">${p.v.nota}</div>`:""}
+ ${cores?`<div class="opt"><span class="lab">Cor: <b style="color:var(--ink);font-weight:500">${cor}</b></span><div class="sw">${cores.map((c,k)=>`<button class="${k==ci?"on":""}" data-c="${k}" title="${c.nome}" aria-label="${c.nome}"><i style="background:${c.amostra?`url(${c.amostra}) center/cover`:c.hex}"></i></button>`).join("")}</div></div>`:""}
  ${p.v?`<div class="opt"><span class="lab">${p.v.lbl}</span><div class="os">${p.v.ops.map(o=>`<button class="${o==sel?"on":""}" data-o="${o}">${o}</button>`).join("")}</div></div>`:""}
  <a class="btn btn-dark cta" href="${waLink(msg)}" target="_blank" rel="noopener">Quero essa · falar no WhatsApp</a>
- <div class="info"><div><b>Produção</b><span>Sob encomenda · ${PRAZO}</span></div><div><b>Pagamento</b><span>Pix com ${Math.round(PIX_OFF*100)}% off ou cartão em até ${PARCELAS}x${juros()}</span></div><div><b>Entrega</b><span>Grátis em Fortaleza</span></div><div><b>Acabamentos</b><span>Tecidos e cores apresentados no atendimento</span></div><div><b>Preço Black</b><span>Válido de 23 a 30/11/2026</span></div></div>
+ <div class="info"><div><b>Produção</b><span>Sob encomenda · ${PRAZO}</span></div><div><b>Pagamento</b><span>Pix com ${Math.round(PIX_OFF*100)}% off ou cartão em até ${PARCELAS}x${juros()}</span></div><div><b>Entrega</b><span>Grátis em Fortaleza</span></div><div><b>Acabamentos</b><span>${cores?"Cores acima; outros tecidos sob consulta":"Tecidos e cores apresentados no atendimento"}</span></div><div><b>Preço Black</b><span>Válido de 23 a 30/11/2026</span></div></div>
  </div></div>`;
- document.querySelectorAll(".opt button").forEach(b=>b.onclick=()=>{sel=b.dataset.o;render()})};
+ document.querySelectorAll(".opt .os button").forEach(b=>b.onclick=()=>{sel=b.dataset.o;render()});
+ document.querySelectorAll(".sw button").forEach(b=>b.onclick=()=>{ci=+b.dataset.c;fi=0;render()});
+ document.querySelectorAll(".thumbs button").forEach(b=>b.onclick=()=>{fi=+b.dataset.f;render()})};
  render();
  const rel=prods.filter(x=>x!==p&&x.c!==p.c).sort((a,b)=>(a.img>b.img)-(b.img>a.img));const i=prods.indexOf(p);
  $("#related").innerHTML=[0,5,9,14].map(k=>rel[(i+k)%rel.length]).map(card).join("");
