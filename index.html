@@ -110,8 +110,8 @@ nav.main a:hover::after,nav.main a.on::after,.wa-top:hover::after,.chips button:
 @media (max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr);gap:36px 14px}}
 .card .ph{aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;padding:10%}
-.card .ph img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;transition:transform .45s}
-.card .ph img.alt{max-width:none!important;max-height:none!important}
+.card .ph{position:relative}
+.card .ph img:not(.alt){position:absolute;inset:0;margin:auto;width:80%;height:80%;max-width:none;max-height:none;object-fit:contain;transition:transform .45s}
 .card:hover .ph img{transform:scale(1.05)}
 .card .nm{font-weight:400;font-size:15.5px;margin-top:10px;text-transform:lowercase}
 .card .ds{display:none}
@@ -365,7 +365,7 @@ const REAL={1:210,2:200,3:200,4:220,5:200,6:220,7:86,8:85,9:80,10:78,11:89,12:85
 /* em cada grade, a maior peça ocupa o quadro todo e as outras ficam em proporção a ela */
 function escalar(){const gs=new Set();document.querySelectorAll(".card .ph img[data-r]").forEach(i=>gs.add(i.closest(".card").parentElement));
  gs.forEach(g=>{const ims=[...g.querySelectorAll(".card .ph img[data-r]")];const mx=Math.max(...ims.map(i=>+i.dataset.r));
-  ims.forEach(i=>{const f=Math.round(Math.max(.5,Math.pow(+i.dataset.r/mx,.6))*100)+"%";i.style.maxWidth=f;i.style.maxHeight=f})})}
+  ims.forEach(i=>{const f=Math.round(Math.max(.5,Math.pow(+i.dataset.r/mx,.6))*80)+"%";i.style.width=f;i.style.height=f})})}
 /* peças fora da vitrine até chegar foto boa (remova o nome da lista para voltar) */
 const OCULTAS=[];
 const AMB=[
