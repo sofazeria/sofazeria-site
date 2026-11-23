@@ -393,7 +393,10 @@ const OPC={
  "p-mesa-mov":[lac]
 };
 /* fotos da peça já num acabamento específico */
-CHEN.itens[3].fotos=["img/p03.webp"]; KNIT.itens[2].fotos=["img/p08.webp"];
+const FOTOACAB={
+ "p-sofa-feijo":{"Chenille verde":"img/p03.webp","Chenille mostarda":"img/p03_chen_mostarda.webp","Chenille off-white":"img/p03_chen_off.webp","Chenille cinza":"img/p03_chen_cinza.webp","Knit terracota":"img/p03_knit_terracota.webp","Bouclê off-white":"img/p03_boucle_off.webp"},
+ "p-poltrona-trip":{"Knit verde":"img/p08.webp","Knit off-white":"img/p08_knit_off.webp","Knit terracota":"img/p08_knit_terracota.webp"}
+};
 const FOTOS={"p-sofa-mucuripe":["img/p01b.webp"],"p-cadeira-peri":["img/p12b.webp"]};
 /* maior medida visível de cada peça (cm), pela numeração da foto: deixa as miniaturas na mesma escala */
 const REAL={1:210,2:200,3:200,4:220,5:200,6:220,7:86,8:85,9:80,10:78,11:89,12:85,13:80,14:75,15:120,16:220,17:220,18:55,19:50,20:55,21:150,22:80,23:100,24:180};
@@ -465,12 +468,12 @@ function catalog(c){const amb=AMB.find(x=>x.id==c);const list=amb?prods.filter(p
  document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("on",a.dataset.c==c));show("catalogo")}
 function product(p){let sel=p.v?p.v.ops[0]:null;const opc=OPC[p.id]||[];const ch=opc.map(()=>null);let last=-1,fi=0;
  const itemOf=(o,k)=>{const [g,n]=k.split(".").map(Number);return opc[o].grupos[g].itens[n]};
- const fotosDa=()=>{const base=[p.img,...(FOTOS[p.id]||[])];if(last<0||!ch[last])return{list:base,am:null};const c=itemOf(last,ch[last]);return c.fotos.length?{list:[...c.fotos,...(FOTOS[p.id]||[])],am:null}:{list:[c.amostra,p.img],am:c.nome}};
+ const fotosDa=()=>{const base=[p.img,...(FOTOS[p.id]||[])];if(last<0||!ch[last])return{list:base,am:null};const c=itemOf(last,ch[last]);const fa=(FOTOACAB[p.id]||{})[c.nome];if(fa)return{list:[fa,c.amostra,...(FOTOS[p.id]||[])],am:null,ilu:fa!=p.img};return c.fotos.length?{list:[...c.fotos,...(FOTOS[p.id]||[])],am:null}:{list:[c.amostra,p.img],am:c.nome}};
  const render=()=>{const F=fotosDa();if(fi>=F.list.length)fi=0;
  const escolhas=opc.map((o,k)=>ch[k]?`${o.lbl.toLowerCase()}: ${itemOf(k,ch[k]).nome.replace(/^(Metal|Laca) /,"")}`:"").filter(Boolean);
  const extra=[sel?`${p.v.lbl.toLowerCase()}: ${sel}`:"",...escolhas].filter(Boolean).join(", ");
  const msg=`Oi, Sofazeria! Quero a ${p.full}${extra?` (${extra})`:""}, que está por ${brl(p.price)} na Black (${brl(pix(p.price))} no Pix). Pode me passar o prazo de entrega?`;
- $("#pp").innerHTML=`<div class="pp"><div><div class="big">${F.am&&fi==0?`<span class="soon">${F.am} · amostra</span>`:""}<img src="${F.list[fi]}" alt="${p.full}"></div>
+ $("#pp").innerHTML=`<div class="pp"><div><div class="big">${F.am&&fi==0?`<span class="soon">${F.am} · amostra</span>`:F.ilu&&fi==0?`<span class="soon">imagem ilustrativa do acabamento</span>`:""}<img src="${F.list[fi]}" alt="${p.full}"></div>
  ${F.list.length>1?`<div class="thumbs">${F.list.map((f,k)=>`<button class="${k==fi?"on":""}" data-f="${k}"><img src="${f}" alt=""></button>`).join("")}</div>`:""}</div>
  <div><div class="crumb"><a href="#catalogo">Curadoria</a> / <a href="#${p.c}">${p.cat.nome}</a></div>
  <h1>${p.full}</h1><div class="ds">${p.ds}</div>
