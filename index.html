@@ -357,7 +357,11 @@ const CORES={
   {nome:"Chenille Verde",hex:"#4F5B3A",amostra:"",fotos:["img/p03.webp"]},
   {nome:"Off-white",hex:"#E9E4D8",amostra:"",fotos:[]},
   {nome:"Cinza",hex:"#9B9993",amostra:"",fotos:[]},
-  {nome:"Mostarda",hex:"#C6952F",amostra:"",fotos:[]}]
+  {nome:"Mostarda",hex:"#C6952F",amostra:"",fotos:[]},
+  {nome:"Knit off-white",hex:"#EAE4D4",amostra:"img/amostra_knit_off.webp",fotos:[]},{nome:"Knit terracota",hex:"#A24A2A",amostra:"img/amostra_knit_terracota.webp",fotos:[]},{nome:"Knit verde",hex:"#525E3C",amostra:"img/amostra_knit_verde.webp",fotos:[]}],
+ "p-poltrona-feijo":[{nome:"Como na foto",hex:"#4F5B3A",amostra:"",fotos:["img/p07.webp"]},{nome:"Knit off-white",hex:"#EAE4D4",amostra:"img/amostra_knit_off.webp",fotos:[]},{nome:"Knit terracota",hex:"#A24A2A",amostra:"img/amostra_knit_terracota.webp",fotos:[]},{nome:"Knit verde",hex:"#525E3C",amostra:"img/amostra_knit_verde.webp",fotos:[]}],
+ "p-poltrona-trip":[{nome:"Como na foto",hex:"#4F5B3A",amostra:"",fotos:["img/p08.webp"]},{nome:"Knit off-white",hex:"#EAE4D4",amostra:"img/amostra_knit_off.webp",fotos:[]},{nome:"Knit terracota",hex:"#A24A2A",amostra:"img/amostra_knit_terracota.webp",fotos:[]},{nome:"Knit verde",hex:"#525E3C",amostra:"img/amostra_knit_verde.webp",fotos:[]}],
+ "p-sofa-onda":[{nome:"Como na foto",hex:"#E9E4D8",amostra:"",fotos:["img/p04.webp"]},{nome:"Knit off-white",hex:"#EAE4D4",amostra:"img/amostra_knit_off.webp",fotos:[]},{nome:"Knit terracota",hex:"#A24A2A",amostra:"img/amostra_knit_terracota.webp",fotos:[]},{nome:"Knit verde",hex:"#525E3C",amostra:"img/amostra_knit_verde.webp",fotos:[]}]
 };
 const FOTOS={"p-sofa-mucuripe":["img/p01b.webp"],"p-cadeira-peri":["img/p12b.webp"]};
 /* maior medida visível de cada peça (cm), pela numeração da foto: deixa as miniaturas na mesma escala */
@@ -429,20 +433,20 @@ function catalog(c){const amb=AMB.find(x=>x.id==c);const list=amb?prods.filter(p
  document.querySelectorAll("#chips button").forEach(b=>b.classList.toggle("on",b.dataset.f==(c||"catalogo")));
  document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("on",a.dataset.c==c));show("catalogo")}
 function product(p){let sel=p.v?p.v.ops[0]:null;const cores=CORES[p.id]||null;let ci=0,fi=0;
- const fotosDa=()=>{const c=cores&&cores[ci];const base=[p.img,...(FOTOS[p.id]||[])];if(!c)return{list:base,falta:false};return c.fotos.length?{list:[...c.fotos,...(FOTOS[p.id]||[])],falta:false}:{list:base,falta:true}};
+ const fotosDa=()=>{const c=cores&&cores[ci];const base=[p.img,...(FOTOS[p.id]||[])];if(!c)return{list:base,falta:false};return c.fotos.length?{list:[...c.fotos,...(FOTOS[p.id]||[])],falta:false}:{list:c.amostra?[c.amostra,p.img]:base,falta:true}};
  const render=()=>{const cor=cores?cores[ci].nome:null;const F=fotosDa();if(fi>=F.list.length)fi=0;
- const extra=[sel?`${p.v.lbl.toLowerCase()}: ${sel}`:"",cor?`cor: ${cor}`:""].filter(Boolean).join(", ");
+ const extra=[sel?`${p.v.lbl.toLowerCase()}: ${sel}`:"",cor?`tecido: ${cor}`:""].filter(Boolean).join(", ");
  const msg=`Oi, Sofazeria! Quero a ${p.full}${extra?` (${extra})`:""}, que está por ${brl(p.price)} na Black (${brl(pix(p.price))} no Pix). Pode me passar o prazo de entrega?`;
- $("#pp").innerHTML=`<div class="pp"><div><div class="big">${F.falta?`<span class="soon">Foto na cor ${cor} em breve · veja a amostra do tecido</span>`:""}<img src="${F.list[fi]}" alt="${p.full}${cor?" "+cor:""}"></div>
+ $("#pp").innerHTML=`<div class="pp"><div><div class="big">${F.falta?`<span class="soon">${cor} · amostra do tecido</span>`:""}<img src="${F.list[fi]}" alt="${p.full}${cor?" "+cor:""}"></div>
  ${F.list.length>1?`<div class="thumbs">${F.list.map((f,k)=>`<button class="${k==fi?"on":""}" data-f="${k}"><img src="${f}" alt=""></button>`).join("")}</div>`:""}</div>
  <div><div class="crumb"><a href="#catalogo">Curadoria</a> / <a href="#${p.c}">${p.cat.nome}</a></div>
  <h1>${p.full}</h1><div class="ds">${p.ds}</div>
  <span class="off">Black ${p.pct}% OFF</span><div class="pr" style="margin-top:4px"><s>${brl(p.orig)}</s><b>${brl(p.price)}</b></div><div class="pay lg">em até ${PARCELAS}x de ${brl(parc(p.price))}${juros()}<br><span class="px">ou ${brl(pix(p.price))} no Pix (${Math.round(PIX_OFF*100)}% off)</span></div><div class="lab" style="margin-top:6px">Preço anterior riscado · feito sob encomenda no Ceará</div>
  ${p.v&&p.v.nota?`<div class="vn">${p.v.nota}</div>`:""}
- ${cores?`<div class="opt"><span class="lab">Cor: <b style="color:var(--ink);font-weight:500">${cor}</b></span><div class="sw">${cores.map((c,k)=>`<button class="${k==ci?"on":""}" data-c="${k}" title="${c.nome}" aria-label="${c.nome}"><i style="background:${c.amostra?`url(${c.amostra}) center/cover`:c.hex}"></i></button>`).join("")}</div></div>`:""}
+ ${cores?`<div class="opt"><span class="lab">Tecido: <b style="color:var(--ink);font-weight:500">${cor}</b></span><div class="sw">${cores.map((c,k)=>`<button class="${k==ci?"on":""}" data-c="${k}" title="${c.nome}" aria-label="${c.nome}"><i style="background:${c.amostra?`url(${c.amostra}) center/cover`:c.hex}"></i></button>`).join("")}</div></div>`:""}
  ${p.v?`<div class="opt"><span class="lab">${p.v.lbl}</span><div class="os">${p.v.ops.map(o=>`<button class="${o==sel?"on":""}" data-o="${o}">${o}</button>`).join("")}</div></div>`:""}
  <a class="btn btn-dark cta" href="${waLink(msg)}" target="_blank" rel="noopener">Quero essa · falar no WhatsApp</a>
- ${NOMES[p.n]?`<div class="story"><span class="lb">de onde vem o nome</span><p><b>${p.n}.</b> ${NOMES[p.n]}</p></div>`:""}<div class="info"><div><b>Produção</b><span>Sob encomenda · ${PRAZO}</span></div><div><b>Pagamento</b><span>Pix com ${Math.round(PIX_OFF*100)}% off ou cartão em até ${PARCELAS}x${juros()}</span></div><div><b>Entrega</b><span>Grátis em Fortaleza</span></div><div><b>Acabamentos</b><span>${cores?"Cores acima; outros tecidos sob consulta":"Tecidos e cores apresentados no atendimento"}</span></div><div><b>Preço Black</b><span>Válido de 23 a 30/11/2026</span></div></div>
+ ${NOMES[p.n]?`<div class="story"><span class="lb">de onde vem o nome</span><p><b>${p.n}.</b> ${NOMES[p.n]}</p></div>`:""}<div class="info"><div><b>Produção</b><span>Sob encomenda · ${PRAZO}</span></div><div><b>Pagamento</b><span>Pix com ${Math.round(PIX_OFF*100)}% off ou cartão em até ${PARCELAS}x${juros()}</span></div><div><b>Entrega</b><span>Grátis em Fortaleza</span></div><div><b>Acabamentos</b><span>${cores?"Tecidos acima; outros sob consulta":"Tecidos e cores apresentados no atendimento"}</span></div><div><b>Preço Black</b><span>Válido de 23 a 30/11/2026</span></div></div>
  </div></div><div class="pp-quem"><span class="lb">quem faz</span><p>Produzida sob encomenda na nossa fábrica, em Fortaleza, por marceneiros e tapeceiros do grupo +Local, com mais de 40 anos de estofaria no Ceará.</p></div><a class="mbar" href="${waLink(msg)}" target="_blank" rel="noopener"><span>${brl(p.price)} <s>${brl(p.orig)}</s></span><b>quero essa →</b></a>`;
  document.querySelectorAll(".opt .os button").forEach(b=>b.onclick=()=>{sel=b.dataset.o;render()});
  document.querySelectorAll(".sw button").forEach(b=>b.onclick=()=>{ci=+b.dataset.c;fi=0;render()});
