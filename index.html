@@ -259,7 +259,7 @@ footer{border-top:1px solid var(--line);margin-top:100px;padding:60px 0 30px}
  <section class="view" id="v-sobre"><div class="wrap txt">
   <h1>Pop design feito no Ceará.</h1>
   <p>A Sofazeria nasceu do jeito que o nome sugere: como a padaria do pão e a borracharia do pneu, a Sofazeria é o lugar do sofá. E da poltrona, da cadeira, da mesa e de tudo que faz uma casa ficar com cara de casa.</p>
-  <p>Somos uma marca de pop design criada pelo grupo +Local, com mais de 40 anos de estofaria no Ceará. A gente pega esse saber de fábrica e coloca em peças com cor, curva e bom humor, num preço que cabe na vida real.</p>
+  <p>Somos uma marca de pop design criada pelo grupo +Local, com mais de 40 anos de tradição no Ceará. A gente pega esse saber de fábrica e coloca em peças com cor, curva e bom humor, num preço que cabe na vida real.</p>
   <h2>Cada peça tem nome de casa</h2>
   <p>Mucuripe, Jangada, Guajiru, Meireles, Farol. Nossas peças levam nomes do Ceará, pra quem mora (ou queria morar) aqui.</p>
   <h2>Feito sob encomenda</h2>
@@ -397,7 +397,7 @@ const FOTOACAB={
  "p-sofa-feijo":{"Chenille verde":"img/p03.webp","Chenille mostarda":"img/p03_chen_mostarda.webp","Chenille off-white":"img/p03_chen_off.webp","Chenille cinza":"img/p03_chen_cinza.webp","Knit terracota":"img/p03_knit_terracota.webp","Bouclê off-white":"img/p03_boucle_off.webp"},
  "p-poltrona-trip":{"Knit verde":"img/p08.webp","Knit off-white":"img/p08_knit_off.webp","Knit terracota":"img/p08_knit_terracota.webp"}
 };
-const FOTOS={"p-sofa-mucuripe":["img/p01b.webp"]};
+const FOTOS={"p-sofa-mucuripe":["img/p01c.webp","img/p01b.webp"]};
 /* maior medida visível de cada peça (cm), pela numeração da foto: deixa as miniaturas na mesma escala */
 const REAL={1:210,2:200,3:200,4:220,5:200,6:220,7:86,8:85,9:80,10:78,11:89,12:85,13:80,14:75,15:120,16:220,17:220,18:55,19:50,20:55,21:150,22:80,23:100,24:180};
 /* em cada grade, a maior peça ocupa o quadro todo e as outras ficam em proporção a ela */
@@ -483,7 +483,7 @@ function product(p){let sel=p.v?p.v.ops[0]:null;const opc=OPC[p.id]||[];const ch
  ${p.v?`<div class="opt"><span class="lab">${p.v.lbl}</span><div class="os">${p.v.ops.map(o=>`<button class="${o==sel?"on":""}" data-o="${o}">${o}</button>`).join("")}</div></div>`:""}
  <a class="btn btn-dark cta" href="${waLink(msg)}" target="_blank" rel="noopener">Quero essa · falar no WhatsApp</a>
  ${NOMES[p.n]?`<div class="story"><span class="lb">de onde vem o nome</span><p><b>${p.n}.</b> ${NOMES[p.n]}</p></div>`:""}<div class="info"><div><b>Produção</b><span>Sob encomenda · ${PRAZO}</span></div><div><b>Pagamento</b><span>Pix com ${Math.round(PIX_OFF*100)}% off ou cartão em até ${PARCELAS}x${juros()}</span></div><div><b>Entrega</b><span>Grátis em Fortaleza</span></div><div><b>Acabamentos</b><span>${opc.length?"Escolha acima · a foto mostra a peça como referência":"Apresentados no atendimento"}</span></div><div><b>Preço Black</b><span>Válido de 23 a 30/11/2026</span></div></div>
- </div></div><div class="pp-quem"><span class="lb">quem faz</span><p>Produzida sob encomenda na nossa fábrica, em Fortaleza, por marceneiros e tapeceiros do grupo +Local, com mais de 40 anos de estofaria no Ceará.</p></div><a class="mbar" href="${waLink(msg)}" target="_blank" rel="noopener"><span>${brl(p.price)} <s>${brl(p.orig)}</s></span><b>quero essa →</b></a>`;
+ </div></div><div class="pp-quem"><span class="lb">quem faz</span><p>Produzida sob encomenda na nossa fábrica, em Fortaleza, por marceneiros e tapeceiros do grupo +Local, com mais de 40 anos de tradição no Ceará.</p></div><a class="mbar" href="${waLink(msg)}" target="_blank" rel="noopener"><span>${brl(p.price)} <s>${brl(p.orig)}</s></span><b>quero essa →</b></a>`;
  document.querySelectorAll(".opt .os button").forEach(b=>b.onclick=()=>{sel=b.dataset.o;render()});
  document.querySelectorAll(".sw button").forEach(b=>b.onclick=()=>{const o=+b.dataset.o;ch[o]=b.dataset.k;last=o;fi=0;render()});
  document.querySelectorAll(".thumbs button").forEach(b=>b.onclick=()=>{fi=+b.dataset.f;render()})};
