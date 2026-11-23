@@ -363,8 +363,9 @@ const COURO={fam:"Couro sintético",itens:[it("Couro preto","#333535","amostra_c
 const METAL={fam:"",itens:[it("Metal dourado","#AA9468","amostra_metal_dourado"),it("Metal preto fosco","#201F1E","amostra_metal_preto"),it("Metal off-white","#CCC7B8","amostra_metal_offwhite"),it("Metal bronze","#574E31","amostra_metal_bronze")]};
 const LAMINA={fam:"Lâmina natural de carvalho",itens:[it("Carvalho mel","#C4965C","amostra_madeira_mel"),it("Carvalho café","#68482E","amostra_madeira_cafe"),it("Carvalho preto","#282726","amostra_madeira_preto")]};
 const TAUARI={fam:"Madeira maciça tauari",itens:[it("Tauari mel","#B27838","amostra_macica_mel"),it("Tauari café","#603C22","amostra_macica_cafe"),it("Tauari preto","#201E1D","amostra_macica_preto")]};
+const LACA={fam:"",itens:[it("Laca branco","#F0EBD3","amostra_laca_branco"),it("Laca off-white","#9F967E","amostra_laca_off"),it("Laca champanhe","#968A68","amostra_laca_champanhe"),it("Laca preto","#1A1919","amostra_laca_preto")]};
 const TEC=[CHEN,TRAM,BOUC];
-const tec=g=>({lbl:"Tecido",grupos:g}), met={lbl:"Metal",grupos:[METAL]}, lam={lbl:"Madeira",grupos:[LAMINA]}, tau={lbl:"Madeira",grupos:[TAUARI]};
+const tec=g=>({lbl:"Tecido",grupos:g}), met={lbl:"Metal",grupos:[METAL]}, lam={lbl:"Madeira",grupos:[LAMINA]}, tau={lbl:"Madeira",grupos:[TAUARI]}, lac={lbl:"Laca",grupos:[LACA]};
 const OPC={
  "p-sofa-mucuripe":[tec(TEC)],
  "p-sofa-jangada":[tec(TEC),met],
@@ -388,7 +389,8 @@ const OPC={
  "p-mesa-de-apoio-bilro":[lam,met],
  "p-mesa-de-apoio-meireles":[lam,met],
  "p-carrinho-bar-barra":[lam,met],
- "p-carrinho-bar-jobi":[lam,met]
+ "p-carrinho-bar-jobi":[lam,met,lac],
+ "p-mesa-mov":[lac]
 };
 /* fotos da peça já num acabamento específico */
 CHEN.itens[3].fotos=["img/p03.webp"]; KNIT.itens[2].fotos=["img/p08.webp"];
@@ -465,7 +467,7 @@ function product(p){let sel=p.v?p.v.ops[0]:null;const opc=OPC[p.id]||[];const ch
  const itemOf=(o,k)=>{const [g,n]=k.split(".").map(Number);return opc[o].grupos[g].itens[n]};
  const fotosDa=()=>{const base=[p.img,...(FOTOS[p.id]||[])];if(last<0||!ch[last])return{list:base,am:null};const c=itemOf(last,ch[last]);return c.fotos.length?{list:[...c.fotos,...(FOTOS[p.id]||[])],am:null}:{list:[c.amostra,p.img],am:c.nome}};
  const render=()=>{const F=fotosDa();if(fi>=F.list.length)fi=0;
- const escolhas=opc.map((o,k)=>ch[k]?`${o.lbl.toLowerCase()}: ${itemOf(k,ch[k]).nome.replace(/^Metal /,"")}`:"").filter(Boolean);
+ const escolhas=opc.map((o,k)=>ch[k]?`${o.lbl.toLowerCase()}: ${itemOf(k,ch[k]).nome.replace(/^(Metal|Laca) /,"")}`:"").filter(Boolean);
  const extra=[sel?`${p.v.lbl.toLowerCase()}: ${sel}`:"",...escolhas].filter(Boolean).join(", ");
  const msg=`Oi, Sofazeria! Quero a ${p.full}${extra?` (${extra})`:""}, que está por ${brl(p.price)} na Black (${brl(pix(p.price))} no Pix). Pode me passar o prazo de entrega?`;
  $("#pp").innerHTML=`<div class="pp"><div><div class="big">${F.am&&fi==0?`<span class="soon">${F.am} · amostra</span>`:""}<img src="${F.list[fi]}" alt="${p.full}"></div>
