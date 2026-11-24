@@ -330,7 +330,7 @@ const P=[
  ["sofas","Jangada","Linhas retas · L 200 × P 90 × A 80 cm",7900,2],
  ["sofas","Feijó","Orgânico · L 200 × P 90 × A 80 cm",6900,3],
  ["sofas","Onda","Orgânico · L 220 × P 90 × A 80 cm",7690,4],
- ["sofas","Brera","Modular · L 200 × P 100 × A 75 cm",10900,5],
+ ["sofas","Brera","Modular · L 200 × P 100 × A 75 cm",8900,5],
  ["sofas","Guajiru","Modular ilha · L 220 × P 140 × A 80 cm",8650,6],
  ["camas","Julia","Estofada · casal, queen ou king",8990,24,{lbl:"Tamanho",ops:["Queen","Casal","King"],nota:"Preço do tamanho queen · casal e king sob consulta"}],
  ["poltronas","Feijó","Fixa ou giratória · L 86 × P 90 × A 70 cm",3680,7,{lbl:"Base",ops:["Fixa","Giratória"],nota:"Preço da versão fixa · giratória sob consulta"}],
@@ -430,6 +430,8 @@ const NOMES={
 const slug=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-");
 const prods=P.map(([c,n,ds,price,img,v])=>{const cat=CATS.find(x=>x.id==c);const orig=Math.round(price/(1-cat.d)/10)*10;
  return {c,cat,n,full:cat.un+" "+n,ds,price,orig,pct:Math.round(cat.d*100),img:`img/p${String(img).padStart(2,"0")}.webp`,v,r:REAL[img]||120,id:"p-"+slug(cat.un+" "+n)}});
+/* preço anterior fixo por peça (oferta especial) */
+const ORIG={"p-sofa-brera":18170};prods.forEach(p=>{if(ORIG[p.id]){p.orig=ORIG[p.id];p.pct=Math.round((1-p.price/p.orig)*100)}});
 const prodsAll=prods.slice();prods.splice(0,prods.length,...prods.filter(p=>!OCULTAS.includes(p.id.slice(2))));
 const CATSV=CATS.filter(c=>prods.some(p=>p.c==c.id));
 if(!prods.some(p=>p.c=="camas")){const qi=AMB.findIndex(a=>a.id=="quarto");if(qi>=0)AMB.splice(qi,1)}
