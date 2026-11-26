@@ -200,7 +200,7 @@ footer{border-top:1px solid var(--line);margin-top:100px;padding:60px 0 30px}
 </head>
 <body>
 
-<div class="strip">black de estreia · 23 → 30 nov · até 50% off · entrega grátis em fortaleza</div>
+<div class="strip" id="strip">black de estreia · 23 → 30 nov · até 50% off · entrega grátis em fortaleza</div>
 
 <header>
  <div class="wrap hd">
@@ -217,7 +217,7 @@ footer{border-top:1px solid var(--line);margin-top:100px;padding:60px 0 30px}
  <section class="view" id="v-inicio">
   <div class="hero2">
    <div class="ph"><img src="img/p05.webp" alt="Sofá Brera"><small>sofá brera · modular</small></div>
-   <div class="pop"><span class="ast">✱</span>
+   <div class="pop" id="heropop"><span class="ast">✱</span>
     <h1>Black<sup>26</sup><br><span style="font-weight:300;font-size:.42em;letter-spacing:-.01em;text-transform:lowercase">de estreia</span></h1>
     <div class="dt">23 nov →<br>→ 30 nov</div>
     <div class="bot"><p>descontos de estreia na curadoria Sofazeria<br>peças sob encomenda · entrega grátis em fortaleza</p><div class="big50"><small>até</small>50% off</div></div>
@@ -226,7 +226,7 @@ footer{border-top:1px solid var(--line);margin-top:100px;padding:60px 0 30px}
   <div class="amb" id="amb"></div>
   <div class="wrap words"><div class="lb">ou escolha por peça</div><div class="catrow" id="catlist"></div></div>
   <div class="wrap sec">
-   <div class="sec-h"><h2>destaques da black</h2><a href="#catalogo">ver todas →</a></div>
+   <div class="sec-h"><h2 id="dest-h">destaques da black</h2><a href="#catalogo">ver todas →</a></div>
    <div class="feat" id="destaques"></div>
   </div>
   <div class="wrap edit">
@@ -288,9 +288,9 @@ footer{border-top:1px solid var(--line);margin-top:100px;padding:60px 0 30px}
   <details open><summary>Como faço para comprar?</summary><p>Escolha a peça no site e toque em "Quero essa". Você vai para o nosso WhatsApp com a peça já escrita na mensagem. Por lá a gente confirma tecido, tamanho, prazo e envia o link de pagamento.</p></details>
   <details><summary>Quanto tempo leva para chegar?</summary><p>Como tudo é feito sob encomenda, o prazo de produção é de até 30 dias úteis, mais a entrega. O prazo exato é confirmado no atendimento.</p></details>
   <details><summary>Vocês entregam fora de Fortaleza?</summary><p>Por enquanto, a Sofazeria entrega somente em Fortaleza, com frete grátis. Se você mora em outra cidade, fala com a gente: estamos anotando para as próximas rotas.</p></details>
-  <details><summary>Quais são as formas de pagamento?</summary><p>Pix com 5% de desconto ou cartão de crédito em até 10x sem juros. O pagamento é feito por link seguro enviado no WhatsApp.</p></details>
+  <details><summary>Quais são as formas de pagamento?</summary><p id="faq-pag">Pix com 5% de desconto ou cartão de crédito em até 10x sem juros. O pagamento é feito por link seguro enviado no WhatsApp.</p></details>
   <details><summary>Posso escolher o tecido e a cor?</summary><p>Sim. Na página de cada peça você escolhe o tecido e, quando houver, o metal e a madeira. A escolha já vai junto na mensagem do WhatsApp.</p></details>
-  <details><summary>O que é o "preço anterior"?</summary><p>É o valor praticado pelo grupo +Local para a mesma peça, antes da passagem para a Sofazeria. O preço em destaque é o preço da Black de estreia, válido de 23 a 30 de novembro de 2026.</p></details>
+  <details id="faq-ant"><summary>O que é o "preço anterior"?</summary><p>É o valor praticado pelo grupo +Local para a mesma peça, antes da passagem para a Sofazeria. O preço em destaque é o preço da Black de estreia, válido de 23 a 30 de novembro de 2026.</p></details>
  </div></section>
 </main>
 
@@ -302,7 +302,7 @@ footer{border-top:1px solid var(--line);margin-top:100px;padding:60px 0 30px}
    <div class="fcol"><h4>contato</h4><div class="ls"><a data-wa="geral" href="#">whatsapp · (85) 99188-1948</a><a href="mailto:atendimento@sofazeria.com">atendimento@sofazeria.com</a><a href="https://instagram.com/sofazeria" target="_blank" rel="noopener">@sofazeria</a><p>fortaleza · ce</p></div></div>
    <div class="fsig"><img src="img/logo.png" alt="Sofazeria"><p>Pop design feito no Ceará.<br>Pra quem mora (ou queria morar) aqui.</p></div>
   </div>
-  <div class="legal">Preço anterior: valor praticado pelo grupo +Local para a mesma peça, antes da passagem para a Sofazeria. Preços da Black válidos de 23 a 30/11/2026. Imagens ilustrativas; cores e acabamentos podem variar. Medidas aproximadas, em centímetros.<br>SOFAZERIA COMERCIO LTDA · CNPJ 62.571.108/0001-91 · R. Uberlândia, 690 · Messejana · Fortaleza/CE · CEP 60871-110 · Uma marca do grupo +Local.</div>
+  <div class="legal"><span id="legal-black">Preço anterior: valor praticado pelo grupo +Local para a mesma peça, antes da passagem para a Sofazeria. Preços da Black válidos de 23 a 30/11/2026. </span>Imagens ilustrativas; cores e acabamentos podem variar. Medidas aproximadas, em centímetros.<br>SOFAZERIA COMERCIO LTDA · CNPJ 62.571.108/0001-91 · R. Uberlândia, 690 · Messejana · Fortaleza/CE · CEP 60871-110 · Uma marca do grupo +Local.</div>
  </div>
 </footer>
 
@@ -314,7 +314,10 @@ const WHATSAPP = "5585991881948";   // número com DDI+DDD, só dígitos
 const PRAZO = "Até 30 dias úteis + entrega";
 const PIX_OFF = 0.05;      // desconto no Pix
 const PARCELAS = 10;       // parcelas no cartão
-const SEM_JUROS = true;    // false se houver juros // prazo de produção
+const SEM_JUROS = true;
+const VIRADA = "2026-12-01T00:00:00-03:00"; // a partir daqui: preço Pix + cartão 10% acima em até 10x
+const CARTAO = 0.10;   // acréscimo do cartão sobre o preço Pix (pós-Black)
+const POS = Date.now() >= Date.parse(VIRADA);    // false se houver juros // prazo de produção
 /* ===================================== */
 
 const CATS=[
@@ -439,12 +442,14 @@ const brl=v=>"R$ "+v.toLocaleString("pt-BR",Number.isInteger(v)?{}:{minimumFract
 const pix=v=>Math.round(v*(1-PIX_OFF)*100)/100;
 const parc=v=>Math.round(v/PARCELAS*100)/100;
 const juros=()=>SEM_JUROS?" sem juros":"";
+const cartao=v=>Math.round(v*(1+CARTAO));
+const parcC=v=>Math.round(cartao(v)/PARCELAS*100)/100;
 const waLink=t=>`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(t)}`;
 const $=s=>document.querySelector(s);
 
 function card(p,cls){const alt=(FOTOS[p.id]||[])[0];return `<a class="card ${cls||""}" href="#${p.id}"><div class="ph${alt?" hv":""}"><img loading="lazy" src="${p.img}" alt="${p.full}" data-r="${p.r}">${alt?`<img class="alt" loading="lazy" src="${alt}" alt="">`:""}</div>
 <div class="nm">${p.full}</div>${OPC[p.id]?(()=>{const all=OPC[p.id].flatMap(o=>o.grupos.flatMap(g=>g.itens));return `<div class="dots">${all.slice(0,6).map(c=>`<i title="${c.nome}" style="background:url(${c.amostra}) center/cover,${c.hex}"></i>`).join("")}<span>${all.length} acabamentos</span></div>`})():""}
-<div class="pr"><b>${brl(p.price)}</b><s>${brl(p.orig)}</s><span class="pct">−${p.pct}%</span></div><div class="pay">${PARCELAS}x de ${brl(parc(p.price))}${juros()} · <span class="px">${brl(pix(p.price))} no pix</span></div></a>`}
+${POS?`<div class="pr"><b>${brl(p.price)}</b><span class="pct" style="background:none;color:var(--ink);padding:0">no pix</span></div><div class="pay">ou ${PARCELAS}x de ${brl(parcC(p.price))} sem juros no cartão</div>`:`<div class="pr"><b>${brl(p.price)}</b><s>${brl(p.orig)}</s><span class="pct">−${p.pct}%</span></div><div class="pay">${PARCELAS}x de ${brl(parc(p.price))}${juros()} · <span class="px">${brl(pix(p.price))} no pix</span></div>`}</a>`}
 
 // nav, lists
 const navHTML=AMB.map(a=>`<a href="#${a.id}" data-c="${a.id}">${a.nome}</a>`).join("")+`<a href="#catalogo" data-c="catalogo">todos os produtos</a><a href="#sobre">sobre</a>`;
@@ -457,11 +462,15 @@ $("#chips").innerHTML=`<button data-f="catalogo">todas</button>`+CATSV.map(c=>`<
 $("#chips").onclick=e=>{const f=e.target.dataset.f;if(f)location.hash=f};
 $("#wa-txt").textContent="(85) 99188-1948";
 
+if(POS){$("#strip").textContent="pop design feito no ceará · pix ou até 10x sem juros · entrega grátis em fortaleza";
+ $("#heropop").innerHTML=`<span class="ast">✱</span><h1>pop<br>design.<br><span style="font-weight:300;font-size:.42em;letter-spacing:-.01em;text-transform:lowercase">feito no ceará</span></h1><div class="dt">sob encomenda<br>entrega grátis</div><div class="bot"><p>curadoria Sofazeria<br>pague no Pix ou em até 10x sem juros no cartão</p><div class="big50"><small>até</small>10x</div></div>`;
+ $("#dest-h").textContent="destaques";$("#faq-pag").textContent="Pix ou cartão de crédito em até 10x sem juros. O preço em destaque é o do Pix; no cartão, o valor total é um pouco maior e pode ser dividido em até 10x sem juros. O pagamento é feito por link seguro enviado no WhatsApp.";
+ $("#faq-ant").remove();$("#legal-black").textContent="Preço em destaque para pagamento no Pix; no cartão, valor total 10% maior, em até 10x sem juros. ";}
 function setWA(){document.querySelectorAll('[data-wa="geral"]').forEach(a=>{a.href=waLink("Oi, Sofazeria! Vim pelo site e quero saber mais sobre as peças.");a.target="_blank";a.rel="noopener"})}
 
 function show(v){document.querySelectorAll(".view").forEach(x=>x.classList.toggle("on",x.id=="v-"+v));window.scrollTo(0,0);$("#mnav").classList.remove("open")}
 function catalog(c){const amb=AMB.find(x=>x.id==c);const list=amb?prods.filter(p=>amb.cats.includes(p.c)):c?prods.filter(p=>p.c==c):prods;const cat=CATS.find(x=>x.id==c)||(amb?{nome:amb.nome,d:null}:null);
- $("#cat-title").textContent=cat?cat.nome.toLowerCase():"toda a curadoria";$("#cat-count").textContent=list.length+(list.length>1?" peças":" peça")+(cat&&cat.d?` · black ${Math.round(cat.d*100)}% off`:"");
+ $("#cat-title").textContent=cat?cat.nome.toLowerCase():"toda a curadoria";$("#cat-count").textContent=list.length+(list.length>1?" peças":" peça")+(!POS&&cat&&cat.d?` · black ${Math.round(cat.d*100)}% off`:"");
  $("#allgrid").innerHTML=list.map(card).join("");
  const side=(p)=>{const im=$("#catimg");if(im.dataset.src==p.img)return;im.style.opacity=0;setTimeout(()=>{im.src=p.img;im.dataset.src=p.img;im.style.opacity=1},180);$("#catname").textContent=p.full.toLowerCase()};
  if(list[0])side(list[0]);
@@ -474,18 +483,18 @@ function product(p){let sel=p.v?p.v.ops[0]:null;const opc=OPC[p.id]||[];const ch
  const render=()=>{const F=fotosDa();if(fi>=F.list.length)fi=0;
  const escolhas=opc.map((o,k)=>ch[k]?`${o.lbl.toLowerCase()}: ${itemOf(k,ch[k]).nome.replace(/^(Metal|Laca) /,"")}`:"").filter(Boolean);
  const extra=[sel?`${p.v.lbl.toLowerCase()}: ${sel}`:"",...escolhas].filter(Boolean).join(", ");
- const msg=`Oi, Sofazeria! Quero a ${p.full}${extra?` (${extra})`:""}, que está por ${brl(p.price)} na Black (${brl(pix(p.price))} no Pix). Pode me passar o prazo de entrega?`;
+ const msg=`Oi, Sofazeria! Quero a ${p.full}${extra?` (${extra})`:""}, que está por ${POS?`${brl(p.price)} no Pix`:`${brl(p.price)} na Black (${brl(pix(p.price))} no Pix)`}. Pode me passar o prazo de entrega?`;
  $("#pp").innerHTML=`<div class="pp"><div><div class="big">${F.am&&fi==0?`<span class="soon">${F.am} · amostra</span>`:F.ilu&&fi==0?`<span class="soon">imagem ilustrativa do acabamento</span>`:""}<img src="${F.list[fi]}" alt="${p.full}"></div>
  ${F.list.length>1?`<div class="thumbs">${F.list.map((f,k)=>`<button class="${k==fi?"on":""}" data-f="${k}"><img src="${f}" alt=""></button>`).join("")}</div>`:""}</div>
  <div><div class="crumb"><a href="#catalogo">Curadoria</a> / <a href="#${p.c}">${p.cat.nome}</a></div>
  <h1>${p.full}</h1><div class="ds">${p.ds}</div>
- <span class="off">Black ${p.pct}% OFF</span><div class="pr" style="margin-top:4px"><s>${brl(p.orig)}</s><b>${brl(p.price)}</b></div><div class="pay lg">em até ${PARCELAS}x de ${brl(parc(p.price))}${juros()}<br><span class="px">ou ${brl(pix(p.price))} no Pix (${Math.round(PIX_OFF*100)}% off)</span></div><div class="lab" style="margin-top:6px">Preço anterior riscado · feito sob encomenda no Ceará</div>
+ ${POS?`<div class="pr" style="margin-top:4px"><b>${brl(p.price)}</b> <span style="font-size:.5em;font-weight:500">no Pix</span></div><div class="pay lg">ou ${brl(cartao(p.price))} em até ${PARCELAS}x de ${brl(parcC(p.price))} sem juros no cartão</div><div class="lab" style="margin-top:6px">feito sob encomenda</div>`:`<span class="off">Black ${p.pct}% OFF</span><div class="pr" style="margin-top:4px"><s>${brl(p.orig)}</s><b>${brl(p.price)}</b></div><div class="pay lg">em até ${PARCELAS}x de ${brl(parc(p.price))}${juros()}<br><span class="px">ou ${brl(pix(p.price))} no Pix (${Math.round(PIX_OFF*100)}% off)</span></div><div class="lab" style="margin-top:6px">Preço anterior riscado · feito sob encomenda no Ceará</div>`}
  ${p.v&&p.v.nota?`<div class="vn">${p.v.nota}</div>`:""}
  ${opc.map((o,k)=>`<div class="opt"><span class="lab">${o.lbl}: <b style="color:var(--ink);font-weight:500">${ch[k]?itemOf(k,ch[k]).nome:"escolha abaixo"}</b></span>${o.grupos.map((g,gi)=>`${g.fam&&o.grupos.length>1?`<div class="fam">${g.fam}</div>`:g.fam?`<div class="fam">${g.fam}</div>`:""}<div class="sw">${g.itens.map((c,n)=>`<button class="${ch[k]==gi+"."+n?"on":""}" data-o="${k}" data-k="${gi}.${n}" title="${c.nome}" aria-label="${c.nome}"><i style="background:url(${c.amostra}) center/cover,${c.hex}"></i></button>`).join("")}</div>`).join("")}</div>`).join("")}
  ${p.v?`<div class="opt"><span class="lab">${p.v.lbl}</span><div class="os">${p.v.ops.map(o=>`<button class="${o==sel?"on":""}" data-o="${o}">${o}</button>`).join("")}</div></div>`:""}
  <a class="btn btn-dark cta" href="${waLink(msg)}" target="_blank" rel="noopener">Quero essa · falar no WhatsApp</a>
- ${NOMES[p.n]?`<div class="story"><span class="lb">de onde vem o nome</span><p><b>${p.n}.</b> ${NOMES[p.n]}</p></div>`:""}<div class="info"><div><b>Produção</b><span>Sob encomenda · ${PRAZO}</span></div><div><b>Pagamento</b><span>Pix com ${Math.round(PIX_OFF*100)}% off ou cartão em até ${PARCELAS}x${juros()}</span></div><div><b>Entrega</b><span>Grátis em Fortaleza</span></div><div><b>Acabamentos</b><span>${opc.length?"Escolha acima · a foto mostra a peça como referência":"Apresentados no atendimento"}</span></div><div><b>Preço Black</b><span>Válido de 23 a 30/11/2026</span></div></div>
- </div></div><div class="pp-quem"><span class="lb">quem faz</span><p>Produzida sob encomenda na nossa fábrica, em Fortaleza, por marceneiros e tapeceiros do grupo +Local, com mais de 40 anos de tradição no Ceará.</p></div><a class="mbar" href="${waLink(msg)}" target="_blank" rel="noopener"><span>${brl(p.price)} <s>${brl(p.orig)}</s></span><b>quero essa →</b></a>`;
+ ${NOMES[p.n]?`<div class="story"><span class="lb">de onde vem o nome</span><p><b>${p.n}.</b> ${NOMES[p.n]}</p></div>`:""}<div class="info"><div><b>Produção</b><span>Sob encomenda · ${PRAZO}</span></div><div><b>Pagamento</b><span>${POS?`Pix ou cartão em até ${PARCELAS}x sem juros`:`Pix com ${Math.round(PIX_OFF*100)}% off ou cartão em até ${PARCELAS}x${juros()}`}</span></div><div><b>Entrega</b><span>Grátis em Fortaleza</span></div><div><b>Acabamentos</b><span>${opc.length?"Escolha acima · a foto mostra a peça como referência":"Apresentados no atendimento"}</span></div>${POS?"":`<div><b>Preço Black</b><span>Válido de 23 a 30/11/2026</span></div>`}</div>
+ </div></div><div class="pp-quem"><span class="lb">quem faz</span><p>Produzida sob encomenda, com a curadoria e o acompanhamento do grupo +Local, com mais de 40 anos de tradição no Ceará.</p></div><a class="mbar" href="${waLink(msg)}" target="_blank" rel="noopener"><span>${brl(p.price)} ${POS?"no pix":`<s>${brl(p.orig)}</s>`}</span><b>quero essa →</b></a>`;
  document.querySelectorAll(".opt .os button").forEach(b=>b.onclick=()=>{sel=b.dataset.o;render()});
  document.querySelectorAll(".sw button").forEach(b=>b.onclick=()=>{const o=+b.dataset.o;ch[o]=b.dataset.k;last=o;fi=0;render()});
  document.querySelectorAll(".thumbs button").forEach(b=>b.onclick=()=>{fi=+b.dataset.f;render()})};
