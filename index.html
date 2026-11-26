@@ -317,7 +317,7 @@ const PARCELAS = 10;       // parcelas no cartão
 const SEM_JUROS = true;
 const VIRADA = "2026-12-01T00:00:00-03:00"; // a partir daqui: preço Pix + cartão 10% acima em até 10x
 const CARTAO = 0.10;   // acréscimo do cartão sobre o preço Pix (pós-Black)
-const POS = Date.now() >= Date.parse(VIRADA);    // false se houver juros // prazo de produção
+const POS = false; // virada pós-Black em espera (para ativar: Date.now() >= Date.parse(VIRADA))    // false se houver juros // prazo de produção
 /* ===================================== */
 
 const CATS=[
